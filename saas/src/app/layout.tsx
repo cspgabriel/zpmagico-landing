@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Sidebar } from "@/components/Sidebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ZapMágico Oficial 2026 — Evolution API SaaS",
-  description: "Gerenciador multi-conta e integrado com a Evolution WhatsApp API",
+  title: "WhatsZap Mágico — Automação Inteligente WhatsApp",
+  description: "Disparo em massa, IA para atendimento 24h, extratores e proteção anti-ban. A central de automação que sua empresa merece.",
 };
 
 export default function RootLayout({
@@ -26,14 +25,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full bg-slate-50 text-slate-900 font-sans">
-        <div className="flex h-screen overflow-hidden">
-          <Sidebar />
-          <main className="flex-1 overflow-y-auto p-8 relative">
-            <div className="max-w-[1200px] mx-auto space-y-6">
-              {children}
-            </div>
-          </main>
-        </div>
+        {children}
       </body>
     </html>
   );

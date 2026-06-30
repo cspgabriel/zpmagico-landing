@@ -3,6 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "./prisma";
 import { verifyPassword } from "./password";
+import { verifyFirebaseToken } from "./firebase-admin";
 import { z } from "zod";
 
 // =============================================================================
@@ -87,6 +88,58 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           role: user.role,
           tenantId: user.tenantId,
         };
+      },
+    }),
+    Credentials({
+      id: "firebase",
+      name: "firebase",
+      credentials: {
+        idToken: { label: "ID Token", type: "text" },
+      },
+      async authorize(credentials) {
+        if (!credentials?.idToken) return null;
+
+        try {
+          const decoded = await verifyFirebaseToken(credentials.idToken as string);
+          const email = decoded.email ?? "";
+          const name = decoded.name ?? decoded.email?.split("@")[0] ?? "";
+
+          let user = await prisma.user.findUnique({ where: { email } });
+
+          if (!user) {
+            user = await prisma.user.create({
+              data: {
+                email,
+                name,
+                image: decoded.picture ?? null,
+                role: "CLIENT",
+                tenant: {
+                  connectOrCreate: {
+                    where: { slug: email.split("@")[0] },
+                    create: {
+                      name: `${name}'s Organization`,
+                      slug: email.split("@")[0],
+                      plan: "FREE",
+                      status: "ACTIVE",
+                    },
+                  },
+                },
+              },
+              include: { tenant: true },
+            });
+          }
+
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            image: user.image,
+            role: user.role,
+            tenantId: user.tenantId,
+          };
+        } catch {
+          return null;
+        }
       },
     }),
   ],

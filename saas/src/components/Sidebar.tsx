@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { LayoutDashboard, MessageCircle, Settings, Users, MessageSquare, Megaphone } from 'lucide-react';
 
 const navigation = [
-  { name: 'Dashboard', href: '/', icon: LayoutDashboard },
+  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { name: 'WhatsApp Conexões', href: '/whatsapp', icon: MessageCircle },
   { name: 'Contatos (CRM)', href: '/contacts', icon: Users },
   { name: 'Chat Inbox (Live)', href: '/chat', icon: MessageSquare },

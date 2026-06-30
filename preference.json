@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "title": "WhatsZap Mágico - Plano Mensal",
+      "unit_price": 19.90,
+      "quantity": 1,
+      "currency_id": "BRL",
+      "description": "Acesso completo ao WhatsZap Mágico: disparo em massa, anti-ban, IA 24h, extratores, multi-instância"
+    }
+  ],
+  "payer": {
+    "email": "cliente@teste.com"
+  },
+  "back_urls": {
+    "success": "https://zpmagico-landing.vercel.app/success",
+    "failure": "https://zpmagico-landing.vercel.app/failure",
+    "pending": "https://zpmagico-landing.vercel.app/pending"
+  },
+  "auto_return": "approved",
+  "external_reference": "zpmagico-monthly-1782856486",
+  "notification_url": "https://zpmagico-landing.vercel.app/api/mercadopago/webhook"
+}

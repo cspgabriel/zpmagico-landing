@@ -9,6 +9,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@700;800&display=swap" rel="stylesheet">
 <style>
 :root {
+  --font: 'Inter', system-ui, sans-serif;
+  --font-display: 'Sora', 'Inter', system-ui, sans-serif;
+}
+/* Light theme (default) */
+:root, [data-theme="light"] {
+  --bg: #f5f6fa;
+  --bg2: #ffffff;
+  --surface: rgba(0,0,0,0.03);
+  --surface2: rgba(0,0,0,0.05);
+  --border: rgba(0,0,0,0.08);
+  --muted: #6b7280;
+  --text: #1a1a2e;
+  --neon-green: #00cc7a;
+  --neon-blue: #0099ff;
+  --green-dim: rgba(0,204,122,0.08);
+  --blue-dim: rgba(0,153,255,0.06);
+  --nav-bg: rgba(245,246,250,0.85);
+  --glow-neon: rgba(0,204,122,0.15);
+}
+/* Dark theme */
+[data-theme="dark"] {
   --bg: #0a0a0f;
   --bg2: #101018;
   --surface: rgba(255,255,255,0.04);
@@ -20,22 +41,27 @@
   --neon-blue: #00d4ff;
   --green-dim: rgba(0,255,136,0.12);
   --blue-dim: rgba(0,212,255,0.10);
-  --font: 'Inter', system-ui, sans-serif;
-  --font-display: 'Sora', 'Inter', system-ui, sans-serif;
+  --nav-bg: rgba(10,10,15,0.8);
+  --glow-neon: rgba(0,255,136,0.08);
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
-body { font-family:var(--font); background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+body { font-family:var(--font); background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; overflow-x:hidden; transition:background .3s, color .3s; }
+::selection { background:var(--neon-green); color:#000; }
 ::selection { background:var(--neon-green); color:#000; }
 
 /* ── NAV ── */
-nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:12px 24px; display:flex; align-items:center; justify-content:space-between; background:rgba(10,10,15,0.8); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); }
+nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:12px 24px; display:flex; align-items:center; justify-content:space-between; background:var(--nav-bg); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); }
 .logo { font-family:var(--font-display); font-weight:800; font-size:20px; letter-spacing:-0.5px; background:linear-gradient(135deg,var(--neon-green),var(--neon-blue)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
 nav .cta { padding:8px 20px; border-radius:8px; background:linear-gradient(135deg,var(--neon-green),#00cc6a); color:#000; font-weight:700; font-size:13px; text-decoration:none; transition:transform .15s, box-shadow .15s; }
-nav .cta:hover { transform:scale(1.05); box-shadow:0 0 24px rgba(0,255,136,0.3); }
+nav .cta:hover { transform:scale(1.05); box-shadow:0 0 24px var(--glow-neon); }
+.theme-toggle { background:var(--surface); border:1px solid var(--border); color:var(--text); width:36px; height:36px; border-radius:8px; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; transition:border-color .15s; }
+.theme-toggle:hover { border-color:var(--neon-green); }
+.nav-right { display:flex; align-items:center; gap:10px; }
 
 /* ── SECTIONS ── */
 section { padding:80px 20px; }
+section, nav, .proof-bar, .features, .comparison, .faq-section, .offer-section, .cta-final, footer, .prob-card, .feature-card, .offer-box, .garantia-box, .quadro, .test-card, .sticky-cta { transition:background .3s, border-color .3s, box-shadow .3s; }
 @media (max-width:640px) { section { padding:56px 16px; } }
 .section { max-width:1120px; margin:0 auto; }
 h2 { font-family:var(--font-display); font-size:clamp(26px,4vw,42px); font-weight:800; margin-bottom:12px; letter-spacing:-0.5px; }
@@ -184,7 +210,7 @@ footer a { color:var(--neon-green); text-decoration:none; }
 /* ── STICKY MOBILE CTA ── */
 .sticky-cta { display:none; }
 @media (max-width:640px) {
-  .sticky-cta { display:block; position:fixed; bottom:0; left:0; right:0; z-index:99; padding:10px 16px; background:rgba(10,10,15,0.95); backdrop-filter:blur(12px); border-top:1px solid var(--border); }
+  .sticky-cta { display:block; position:fixed; bottom:0; left:0; right:0; z-index:99; padding:10px 16px; background:var(--nav-bg); backdrop-filter:blur(12px); border-top:1px solid var(--border); }
   .sticky-cta a { display:block; text-align:center; padding:14px; border-radius:10px; background:linear-gradient(135deg,var(--neon-green),#00cc6a); color:#000; font-weight:800; font-size:15px; text-decoration:none; }
   body { padding-bottom:70px; }
 }
@@ -194,8 +220,11 @@ footer a { color:var(--neon-green); text-decoration:none; }
 
 <!-- NAV -->
 <nav>
-  <div class="logo">WhatsZap<span style="-webkit-text-fill-color:#fff"> Mágico</span></div>
-  <a href="#oferta" class="cta">QUERO AGORA →</a>
+  <div class="logo">WhatsZap<span style="-webkit-text-fill-color:var(--text)"> Mágico</span></div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">🌙</button>
+    <a href="#oferta" class="cta">QUERO AGORA →</a>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -533,8 +562,8 @@ footer a { color:var(--neon-green); text-decoration:none; }
       <div class="por"><small>R$</small> 19,90</div>
       <div class="parcelas">12 parcelas de R$ 19,90 ou R$ 197,90 à vista</div>
       <div class="timer" id="timer">⏳ Oferta encerra em 02:45:00</div>
-      <div class="pag-seguro">🔒 Pagamento 100% seguro via MercadoPago</div>
-            <a href="https://sandbox.mercadopago.com.br/checkout/v1/redirect?pref_id=189231969-894e381b-e097-4f5f-adf5-b1ef91dc93c7" target="_blank" rel="noopener noreferrer" class="cta-grande">🔥 QUERO MEU ACESSO AGORA</a>
+      <div class="pag-seguro">🔒 Pagamento 100% seguro via Stripe/MercadoPago</div>
+      <a href="#" class="cta-grande">🔥 QUERO MEU ACESSO AGORA</a>
       <div class="garant">🛡️ Garantia incondicional de 15 dias · Risco zero</div>
       <div class="bonus-section">
         <h5>🎁 Bônus Exclusivos ao Assinar Hoje</h5>
@@ -563,7 +592,7 @@ footer a { color:var(--neon-green); text-decoration:none; }
 <section class="cta-final">
   <h2>Automatize seu WhatsApp agora.</h2>
   <p>Mais de 2.300 usuários já transformaram suas vendas com a automação inteligente. O próximo pode ser você.</p>
-  <a href="https://sandbox.mercadopago.com.br/checkout/v1/redirect?pref_id=189231969-894e381b-e097-4f5f-adf5-b1ef91dc93c7" target="_blank" rel="noopener noreferrer">🔥 QUERO COMEÇAR AGORA</a>
+  <a href="#oferta">🔥 QUERO COMEÇAR AGORA</a>
 </section>
 
 <!-- FOOTER -->
@@ -575,10 +604,29 @@ footer a { color:var(--neon-green); text-decoration:none; }
 
 <!-- STICKY MOBILE CTA -->
 <div class="sticky-cta">
-  <a href="https://sandbox.mercadopago.com.br/checkout/v1/redirect?pref_id=189231969-894e381b-e097-4f5f-adf5-b1ef91dc93c7" target="_blank" rel="noopener noreferrer">🔥 TESTAR GRÁTIS POR 24H</a>
+  <a href="#oferta">🔥 TESTAR GRÁTIS POR 24H</a>
 </div>
 
 <script>
+// Theme toggle
+(function() {
+  const saved = localStorage.getItem('theme');
+  if (saved) document.documentElement.setAttribute('data-theme', saved);
+})();
+const toggle = document.getElementById('themeToggle');
+toggle.addEventListener('click', () => {
+  const html = document.documentElement;
+  const cur = html.getAttribute('data-theme') || 'light';
+  const next = cur === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  toggle.textContent = next === 'dark' ? '☀️' : '🌙';
+});
+// Set initial toggle icon
+(function() {
+  const cur = document.documentElement.getAttribute('data-theme') || 'light';
+  toggle.textContent = cur === 'dark' ? '☀️' : '🌙';
+})();
 // FAQ toggle
 document.querySelectorAll('.faq-item .perg').forEach(el => {
   el.addEventListener('click', () => el.parentElement.classList.toggle('open'));
@@ -593,7 +641,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 });
 // Countdown timer (2h45m from page load)
 (function() {
-  let total = 9900; // seconds
+  let total = 9900;
   const el = document.getElementById('timer');
   setInterval(() => {
     if (total <= 0) { el.textContent = '⏳ Oferta encerrada'; return; }
