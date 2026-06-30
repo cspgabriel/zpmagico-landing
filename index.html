@@ -214,6 +214,17 @@ footer a { color:var(--neon-green); text-decoration:none; }
   .sticky-cta a { display:block; text-align:center; padding:14px; border-radius:10px; background:linear-gradient(135deg,var(--neon-green),#00cc6a); color:#000; font-weight:800; font-size:15px; text-decoration:none; }
   body { padding-bottom:70px; }
 }
+.requisitos-section { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px; max-width: 800px; margin: 40px auto; }
+.requisitos-title { font-family: var(--font-display); font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.requisitos-title span { color: var(--neon-blue); }
+.requisitos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 600px) { .requisitos-grid { grid-template-columns: 1fr; } }
+.requisitos-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.03); border-radius: 10px; padding: 18px; }
+.requisitos-card h4 { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+.requisitos-list { list-style: none; padding: 0; margin: 0; }
+.requisitos-list li { font-size: 13px; color: var(--muted); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.requisitos-list li:last-child { margin-bottom: 0; }
+.requisitos-list li::before { content: "⚡"; color: var(--neon-blue); font-size: 11px; }
 </style>
 </head>
 <body>
@@ -441,7 +452,7 @@ footer a { color:var(--neon-green); text-decoration:none; }
   <div class="test-carousel" id="carousel">
     <div class="test-card">
       <div class="stars">★★★★★</div>
-      <blockquote>"Uso para disparar campanhas de imóveis. Minha between de leads triplicou e não tomei um bloqueio sequer em 4 meses. Vale cada centavo."</blockquote>
+      <blockquote>"Instalei o aplicativo no meu Windows 11 em menos de 1 minuto. O sistema de aquecimento de chip integrado é fantástico: estou disparando campanhas de lançamentos imobiliários há 4 meses com o mesmo número sem bloqueios. Vale cada centavo!"</blockquote>
       <div class="author">
         <div class="avatar">C</div>
         <div><div class="name">Carlos M.</div><div class="role">Corretor Imobiliário</div></div>
@@ -449,15 +460,15 @@ footer a { color:var(--neon-green); text-decoration:none; }
     </div>
     <div class="test-card">
       <div class="stars">★★★★★</div>
-      <blockquote>"O extrator de grupos + disparo salvou minha prospecção. Em 2 semanas gerei mais de 300 leads qualificados. Melhor investimento do ano."</blockquote>
+      <blockquote>"Como o software roda direto no Windows, ele é super rápido e estável, diferente daquelas extensões de Chrome que travavam o navegador. Deixo o extrator de contatos trabalhando em segundo plano e a prospecção não para."</blockquote>
       <div class="author">
         <div class="avatar">A</div>
-        <div><div class="name">Ana R.</div><div class="role">Head de Vendas</div></div>
+        <div><div class="name">Ana R.</div><div class="role">Empreendedora</div></div>
       </div>
     </div>
     <div class="test-card">
       <div class="stars">★★★★★</div>
-      <blockquote>"Tinha medo de bloqueio porque já perdi conta 2 vezes. Aqui estou há 8 meses com 3 números ativos. A IA de atendimento responde enquanto eu durmo."</blockquote>
+      <blockquote>"Eu tinha receio de ser difícil de configurar, mas baixei o .exe na página de obrigado, dei dois cliques e o assistente de instalação configurou tudo. Hoje rodamos o WhatsZap Mágico em 3 computadores na nossa equipe comercial."</blockquote>
       <div class="author">
         <div class="avatar">F</div>
         <div><div class="name">Fernando L.</div><div class="role">Gerente Comercial</div></div>
@@ -465,26 +476,26 @@ footer a { color:var(--neon-green); text-decoration:none; }
     </div>
     <div class="test-card">
       <div class="stars">★★★★★</div>
-      <blockquote>"Testei 4 ferramentas antes. Ou queimava o número ou era complicada demais. O WhatsZap Mágico é simples e funciona. Uso todo santo dia."</blockquote>
+      <blockquote>"A estabilidade do programa desktop é excelente. Ele consome pouquíssima memória e roda liso no meu Windows 10. Deixo ele aberto disparando minhas campanhas de pós-venda enquanto trabalho em outras tarefas normalmente."</blockquote>
       <div class="author">
         <div class="avatar">M</div>
-        <div><div class="name">Marina S.</div><div class="role">Empreendedora Digital</div></div>
+        <div><div class="name">Marina S.</div><div class="role">Produtora Digital</div></div>
       </div>
     </div>
     <div class="test-card">
       <div class="stars">★★★★★</div>
-      <blockquote>"Desde que implantei aqui na imobiliária, minha equipe comercial passou de 5 para 40 visitas agendadas por semana. O disparo em massa + IA fez toda diferença."</blockquote>
+      <blockquote>"Estávamos cansados de plataformas web que caíam toda hora. Migrar para a versão instalável do WhatsZap Mágico salvou nossa operação. Rodamos campanhas de grande volume direto do PC e os relatórios são gerados na hora."</blockquote>
       <div class="author">
         <div class="avatar">R</div>
-        <div><div class="name">Rafael T.</div><div class="role">Diretor Imobiliária</div></div>
+        <div><div class="name">Rafael T.</div><div class="role">Diretor de Agência</div></div>
       </div>
     </div>
     <div class="test-card">
       <div class="stars">★★★★★</div>
-      <blockquote>"O relatório de entregas salvou minha operação. Descobri que 30% dos meus contatos estavam com números inválidos. Limpei a base e minha conversão subiu 50%."</blockquote>
+      <blockquote>"Fácil demais! Comprei e a página de obrigado já exibiu o download do instalador e minha senha provisória de acesso. Baixei pro meu Windows, li o QR Code e em 10 minutos meu primeiro envio em massa estava rodando."</blockquote>
       <div class="author">
         <div class="avatar">P</div>
-        <div><div class="name">Paulo H.</div><div class="role">Marketing Diretor</div></div>
+        <div><div class="name">Paulo H.</div><div class="role">Lojista / E-commerce</div></div>
       </div>
     </div>
   </div>
@@ -557,6 +568,33 @@ footer a { color:var(--neon-green); text-decoration:none; }
         <div class="perg">E a garantia de 15 dias?<span class="seta">+</span></div>
         <div class="resp">Se nos primeiros 15 dias de uso você não ficar satisfeito por qualquer motivo, a gente devolve 100% do seu dinheiro. Sem perguntas, sem burocracia. Risco zero.</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRÉ-REQUISITOS -->
+<section class="requisitos-section">
+  <div class="requisitos-title">
+    <span>💻</span> Requisitos do Sistema
+  </div>
+  <div class="requisitos-grid">
+    <div class="requisitos-card" style="border-left: 3px solid var(--neon-blue);">
+      <h4>💻 Computador Windows</h4>
+      <ul class="requisitos-list">
+        <li>Sistema Operacional: Windows 10 ou Windows 11 (64-bit)</li>
+        <li>Hardware: Mínimo de 4GB de memória RAM e 500MB de espaço livre</li>
+        <li>Executável leve (.exe) otimizado que roda em segundo plano</li>
+        <li>Compatibilidade: Não funciona nativamente em macOS, Linux ou celulares</li>
+      </ul>
+    </div>
+    <div class="requisitos-card" style="border-left: 3px solid var(--neon-green);">
+      <h4>🌐 Conexão e WhatsApp</h4>
+      <ul class="requisitos-list">
+        <li>Conexão de Internet ativa e estável durante os disparos</li>
+        <li>Aparelho celular com WhatsApp ativo para leitura inicial do QR Code</li>
+        <li>O computador precisa estar ligado para que os envios sejam processados</li>
+        <li>Funciona com números novos ou antigos (aquecedor automático incluso)</li>
+      </ul>
     </div>
   </div>
 </section>
