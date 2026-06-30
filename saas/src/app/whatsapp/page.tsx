@@ -157,11 +157,27 @@ export default function WhatsAppPage() {
         }
       });
       const data = await res.json();
-      
-      if (data && data.qrcode && data.qrcode.base64) {
-        setActiveQrCode(prev => ({ ...prev, [instanceName]: data.qrcode.base64 }));
+
+      // Evolution API 2.3.7 retorna o QR em formatos diferentes conforme o estado:
+      // - { base64, code, pairingCode }  (connect quando desconectada)
+      // - { qrcode: { base64 } }         (algumas versões / eventos)
+      const base64 =
+        data?.base64 ||
+        data?.qrcode?.base64 ||
+        data?.qrcode ||
+        null;
+
+      if (base64) {
+        const normalized = base64.startsWith('data:image')
+          ? base64
+          : `data:image/png;base64,${base64}`;
+        setActiveQrCode(prev => ({ ...prev, [instanceName]: normalized }));
+      } else if (data?.instance?.state === 'open' || data?.state === 'open') {
+        alert('Esta conexão já está ativa (WhatsApp conectado).');
+        fetchLocalInstances();
       } else {
-        alert('Falha ao gerar QR Code. Certifique-se de que a instância não está conectada.');
+        const motivo = data?.error || data?.message || 'A Evolution API não retornou um QR Code.';
+        alert('Falha ao gerar QR Code: ' + motivo);
       }
     } catch (error) {
       console.error('Erro ao buscar QR Code:', error);
