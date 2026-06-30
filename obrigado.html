@@ -35,6 +35,16 @@ h1 { font-family:var(--font-display); font-size:28px; font-weight:800; margin-bo
 .bonus-desc { font-size: 11px; color: var(--muted); }
 .bonus-btn { display: inline-flex; align-items: center; justify-content: center; padding: 8px 16px; border-radius: 8px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text); font-size: 12px; font-weight: 600; text-decoration: none; transition: all 0.2s; }
 .bonus-btn:hover { background: var(--neon-green); color: #000; border-color: var(--neon-green); }
+.credentials-box { background: rgba(0, 255, 136, 0.04); border: 1px dashed rgba(0, 255, 136, 0.3); border-radius: 12px; padding: 20px; margin-bottom: 24px; text-align: left; display: none; }
+.credentials-box h4 { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--neon-green); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.credentials-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; font-size: 13px; }
+.credentials-row:last-child { margin-bottom: 0; }
+.credentials-label { color: var(--muted); }
+.credentials-value { font-weight: 700; color: var(--text); font-family: monospace; background: rgba(255,255,255,0.03); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border); }
+.credentials-copy { background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 4px 10px; border-radius: 6px; color: var(--text); font-size: 11px; cursor: pointer; transition: all 0.2s; font-family: var(--font); }
+.credentials-copy:hover { background: var(--neon-green); color: #000; border-color: var(--neon-green); }
+.credentials-login-link { display: block; text-align: center; margin-top: 16px; padding: 12px; border-radius: 8px; background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.15); color: var(--neon-green); text-decoration: none; font-size: 13px; font-weight: 700; transition: all 0.2s; }
+.credentials-login-link:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 20px rgba(0,255,136,0.2); }
 </style>
 </head>
 <body>
@@ -60,6 +70,28 @@ h1 { font-family:var(--font-display); font-size:28px; font-weight:800; margin-bo
   </a>
 
   <div class="email-note">📧 Também enviamos este link para o email do seu pagamento.</div>
+
+  <!-- BOX DE CREDENCIAIS GERADAS -->
+  <div class="credentials-box" id="credentialsBox">
+    <h4>🔑 Seus Dados de Acesso ao Portal:</h4>
+    <div class="credentials-row">
+      <div>
+        <span class="credentials-label">Usuário:</span>
+        <span class="credentials-value" id="userEmail">buscando...</span>
+      </div>
+      <button class="credentials-copy" onclick="copiarValor('userEmail')">Copiar</button>
+    </div>
+    <div class="credentials-row" id="passwordRow">
+      <div>
+        <span class="credentials-label">Senha Temporária:</span>
+        <span class="credentials-value" id="userPassword">buscando...</span>
+      </div>
+      <button class="credentials-copy" onclick="copiarValor('userPassword')">Copiar</button>
+    </div>
+    <div id="loginLinkContainer">
+      <a href="/login" class="credentials-login-link">💻 ENTRAR NO PORTAL DO CLIENTE</a>
+    </div>
+  </div>
 
   <div class="bonus-container">
     <div class="bonus-title">🎁 Seus Bônus de Compra Liberados:</div>
@@ -89,11 +121,78 @@ h1 { font-family:var(--font-display); font-size:28px; font-weight:800; margin-bo
 <script>
 const params = new URLSearchParams(window.location.search);
 const status = params.get('status');
-const paymentId = params.get('payment_id');
-const collectionId = params.get('collection_id');
+const paymentId = params.get('payment_id') || params.get('collection_id');
 
-if (status === 'approved' || collectionId) {
+if (status === 'approved' || paymentId) {
   document.getElementById('statusMsg').textContent = '✅ Pagamento aprovado! Seu aplicativo está pronto para download.';
+  
+  // Buscar credenciais geradas dinamicamente
+  if (paymentId) {
+    buscarCredenciais(paymentId);
+  }
+}
+
+async function buscarCredenciais(payId) {
+  const box = document.getElementById('credentialsBox');
+  const userEmail = document.getElementById('userEmail');
+  const userPassword = document.getElementById('userPassword');
+  const passwordRow = document.getElementById('passwordRow');
+  
+  try {
+    box.style.display = 'block';
+    
+    // Consulta o endpoint de status do Next.js
+    const response = await fetch(`/api/checkout/status?payment_id=${payId}`);
+    if (response.ok) {
+      const data = await response.json();
+      if (data.status === 'approved') {
+        userEmail.textContent = data.email;
+        if (data.tempPassword) {
+          userPassword.textContent = data.tempPassword;
+        } else {
+          // Usuário já existia e não teve nova senha gerada
+          passwordRow.innerHTML = '<div style="font-size:12px;color:var(--muted)">Sua conta já estava ativa. Use sua senha cadastrada.</div>';
+        }
+      } else {
+        userEmail.textContent = 'Processando pagamento...';
+        userPassword.textContent = 'aguarde';
+      }
+    } else {
+      userEmail.textContent = 'Erro ao carregar';
+      passwordRow.style.display = 'none';
+    }
+  } catch (error) {
+    userEmail.textContent = 'Erro de conexão';
+    passwordRow.style.display = 'none';
+  }
+}
+
+function copiarValor(elementId) {
+  const text = document.getElementById(elementId).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    // Achar o botão clicado
+    const event = window.event;
+    let btn = null;
+    if (event && event.target) {
+      btn = event.target;
+    } else {
+      // Fallback
+      btn = document.querySelector('.credentials-copy');
+    }
+    if (btn) {
+      const oldText = btn.textContent;
+      btn.textContent = 'Copiado!';
+      btn.style.background = '#00ff88';
+      btn.style.color = '#000';
+      btn.style.borderColor = '#00ff88';
+      setTimeout(() => {
+        btn.textContent = oldText;
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }, 1500);
+    }
+  });
 }
 
 async function baixar() {
