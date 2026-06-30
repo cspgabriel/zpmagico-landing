@@ -1,91 +1,466 @@
+// =============================================================================
+// ZapMágico — Schema Prisma completo (Sprint 0 — Sistema Pronto)
+// =============================================================================
+// Stack: Postgres 16 (Docker, porta 5435)
+// Auth: NextAuth v5 (Auth.js) com Prisma Adapter
+// Multi-tenant: tenantId em TODAS as tabelas de dados; nunca confiar no client.
+// =============================================================================
+
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
   provider = "prisma-client-js"
 }
 
+// =============================================================================
+// AUTH (NextAuth / Auth.js)
+// =============================================================================
+
+enum UserRole {
+  ADMIN  // Funcionário da Agenciar (acesso ao painel /admin)
+  CLIENT // Cliente pagante (acesso ao portal /app)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  emailVerified DateTime?
+  name          String?
+  image         String?
+  passwordHash  String? // bcrypt; null quando vier de OAuth (futuro)
+  role          UserRole  @default(CLIENT)
+
+  // Tenant: ADMIN pertence a um tenant "interno" da Agenciar; CLIENT ao tenant pagante.
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  // NextAuth
+  accounts Account[]
+  sessions Session[]
+
+  // Relacionamentos do domínio
+  apiKeys             CustomerApiKey[]
+  tickets             SupportTicket[]
+  auditLogs           AuditLog[]
+  webhookSubscriptions WebhookSubscription[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@index([role])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// =============================================================================
+// TENANT (Multi-tenancy)
+// =============================================================================
+
+enum TenantStatus {
+  ACTIVE
+  SUSPENDED // cliente inadimplente ou suspenso manualmente
+  CANCELED  // cancelado, manter dados para histórico
+}
+
 model Tenant {
-  id        String             @id @default(uuid())
-  name      String
-  plan      String             @default("free") // 'free', 'pro', 'enterprise'
-  status    String             @default("active")
-  createdAt DateTime           @default(now())
-  updatedAt DateTime           @updatedAt
+  id     String       @id @default(cuid())
+  slug   String       @unique // usado em URLs internas: saas_tenant_<slug>
+  name   String
+  status TenantStatus @default(ACTIVE)
+
+  // Billing
+  subscription   Subscription?
+  invoices       Invoice[]
+  usageMetrics   UsageMetric[]
+
+  // Domínio
   users     User[]
   instances WhatsAppInstance[]
   contacts  Contact[]
   messages  ChatMessage[]
   campaigns Campaign[]
-}
 
-model User {
-  id        String   @id @default(uuid())
-  tenantId  String
-  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  name      String
-  email     String   @unique
-  role      String   @default("member") // 'admin', 'member'
+  // API/Acesso
+  apiKeys             CustomerApiKey[]
+  webhookSubscriptions WebhookSubscription[]
+
+  // Suporte
+  tickets SupportTicket[]
+
+  // Compliance
+  auditLogs AuditLog[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model WhatsAppInstance {
-  id               String        @id @default(uuid())
-  tenantId         String
-  tenant           Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  instanceName     String        @unique // Ex: saas_tenant_alfa_financeiro
-  connectionStatus String        @default("disconnected") // 'connected', 'disconnected', 'connecting'
-  phoneNumber      String?
-  qrcodeUrl        String?
-  createdAt        DateTime      @default(now())
-  updatedAt        DateTime      @updatedAt
-  messages         ChatMessage[]
-  campaigns        Campaign[]
+// =============================================================================
+// BILLING (Asaas integration)
+// =============================================================================
+
+enum PlanInterval {
+  MONTHLY
+  YEARLY
 }
 
-model Contact {
-  id        String        @id @default(uuid())
-  tenantId  String
-  tenant    Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  name      String
-  number    String // Número do WhatsApp: Ex: 5521993165605
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
-  messages  ChatMessage[]
+model Plan {
+  id                   String       @id @default(cuid())
+  slug                 String       @unique // starter | pro | enterprise
+  name                 String
+  description          String?
+  priceCents           Int // sempre em centavos (evita float)
+  interval             PlanInterval @default(MONTHLY)
+  maxInstances         Int          @default(1)
+  maxMessagesPerMonth  Int          @default(500)
+  maxContacts          Int          @default(100)
+  features             String // JSON: array de flags ["campaigns","api_access","priority_support"]
+  isActive             Boolean      @default(true)
+  isPublic             Boolean      @default(true) // visível na página de pricing
+  trialDays            Int          @default(7)
 
-  @@unique([tenantId, number]) // Contato único por cliente do SaaS
+  subscriptions Subscription[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum SubscriptionStatus {
+  TRIALING
+  ACTIVE
+  PAST_DUE
+  CANCELED
+  PENDING // aguardando primeiro pagamento
+}
+
+model Subscription {
+  id                  String             @id @default(cuid())
+  tenantId            String             @unique
+  tenant              Tenant             @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  planId              String
+  plan                Plan               @relation(fields: [planId], references: [id])
+  status              SubscriptionStatus @default(PENDING)
+  asaasSubscriptionId String?            @unique
+  asaasCustomerId     String?
+  currentPeriodStart  DateTime
+  currentPeriodEnd    DateTime
+  cancelAtPeriodEnd   Boolean            @default(false)
+  canceledAt          DateTime?
+  trialEndsAt         DateTime?
+
+  invoices Invoice[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+}
+
+enum InvoiceStatus {
+  PENDING
+  PAID
+  OVERDUE
+  REFUNDED
+  CANCELED
+}
+
+model Invoice {
+  id             String        @id @default(cuid())
+  subscriptionId String
+  subscription   Subscription  @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  tenantId       String
+  tenant         Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  amountCents    Int
+  status         InvoiceStatus @default(PENDING)
+  asaasInvoiceId String?       @unique
+  asaasPaymentId String?
+  dueDate        DateTime
+  paidAt         DateTime?
+  pdfUrl         String?
+  description    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId, status])
+}
+
+// =============================================================================
+// WHATSAPP (já existia — mantido)
+// =============================================================================
+
+enum InstanceStatus {
+  DISCONNECTED
+  CONNECTING
+  CONNECTED
+  ERROR
+}
+
+model WhatsAppInstance {
+  id               String        @id @default(cuid())
+  tenantId         String
+  tenant           Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  instanceName     String        @unique
+  connectionStatus InstanceStatus @default(DISCONNECTED)
+  phoneNumber      String?
+  profileName      String?
+  profilePicUrl    String?
+  qrcodeUrl        String?
+  lastConnectedAt  DateTime?
+  lastDisconnectedAt DateTime?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  messages  ChatMessage[]
+  campaigns Campaign[]
+
+  @@index([tenantId])
+  @@index([connectionStatus])
+}
+
+// =============================================================================
+// CONTATOS / MENSAGENS / CAMPANHAS (já existiam — mantido)
+// =============================================================================
+
+model Contact {
+  id        String   @id @default(cuid())
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name      String
+  number    String
+  email     String?
+  tags      String? // CSV de tags: "vip,lead,suporte"
+  notes     String?
+  avatarUrl String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  messages ChatMessage[]
+
+  @@unique([tenantId, number])
+  @@index([tenantId])
 }
 
 model ChatMessage {
-  id         String           @id @default(uuid())
+  id         String   @id @default(cuid())
   tenantId   String
-  tenant     Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenant     Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   instanceId String
   instance   WhatsAppInstance @relation(fields: [instanceId], references: [id], onDelete: Cascade)
   contactId  String?
-  contact    Contact?         @relation(fields: [contactId], references: [id], onDelete: SetNull)
-  messageId  String // ID retornado pelo WhatsApp (key.id)
-  sender     String // Quem enviou
-  receiver   String // Quem recebeu
-  content    String // Conteúdo de texto
-  direction  String // 'inbound' ou 'outbound'
-  timestamp  DateTime         @default(now())
+  contact    Contact? @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  messageId  String   @unique
+  sender     String
+  receiver   String
+  content    String
+  messageType String  @default("text") // text | image | audio | video | document
+  direction  String // inbound | outbound
+  status     String   @default("sent") // sent | delivered | read | failed
+  timestamp  DateTime @default(now())
+
+  @@index([tenantId, timestamp])
+  @@index([contactId, timestamp])
+}
+
+enum CampaignStatus {
+  DRAFT
+  SCHEDULED
+  RUNNING
+  COMPLETED
+  FAILED
+  CANCELED
 }
 
 model Campaign {
-  id         String           @id @default(uuid())
+  id         String         @id @default(cuid())
   tenantId   String
-  tenant     Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenant     Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   instanceId String
   instance   WhatsAppInstance @relation(fields: [instanceId], references: [id], onDelete: Cascade)
   name       String
   message    String
-  status     String           @default("pending") // 'pending', 'sending', 'completed', 'failed'
-  sentCount  Int              @default(0)
-  failCount  Int              @default(0)
-  createdAt  DateTime         @default(now())
-  updatedAt  DateTime         @updatedAt
+  status     CampaignStatus @default(DRAFT)
+  scheduledFor DateTime?
+  sentCount  Int            @default(0)
+  deliveredCount Int        @default(0)
+  readCount  Int            @default(0)
+  failCount  Int            @default(0)
+  startedAt  DateTime?
+  finishedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId, status])
+}
+
+// =============================================================================
+// API PÚBLICA DO CLIENTE
+// =============================================================================
+
+model CustomerApiKey {
+  id         String    @id @default(cuid())
+  tenantId   String
+  tenant     Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name       String // ex: "Pipedrive Integration"
+  keyHash    String    @unique // SHA-256 da chave completa; nunca plain no banco
+  prefix     String // primeiros 12 chars pra exibir "zap_a1b2c3d4..."
+  lastUsedAt DateTime?
+  expiresAt  DateTime?
+  revokedAt  DateTime?
+  scopes     String    @default("read,write") // CSV
+
+  createdAt DateTime @default(now())
+
+  @@index([tenantId])
+}
+
+model WebhookSubscription {
+  id             String   @id @default(cuid())
+  tenantId       String
+  tenant         Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  url            String
+  events         String // CSV: "message.received,message.sent,instance.connected,instance.disconnected"
+  secretHash     String // HMAC secret (hasheado pra comparar, mas o secret plain é mostrado 1x ao criar)
+  isActive       Boolean  @default(true)
+  lastDeliveryAt DateTime?
+  failureCount   Int      @default(0)
+  disabledAt     DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+// =============================================================================
+// SUPORTE
+// =============================================================================
+
+enum TicketStatus {
+  OPEN
+  WAITING_CUSTOMER
+  WAITING_AGENT
+  CLOSED
+}
+
+enum TicketPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+enum AuthorType {
+  CUSTOMER
+  AGENT
+  SYSTEM
+}
+
+model SupportTicket {
+  id       String         @id @default(cuid())
+  tenantId String
+  tenant   Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  userId   String
+  user     User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subject  String
+  status   TicketStatus   @default(OPEN)
+  priority TicketPriority @default(NORMAL)
+  messages TicketMessage[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  closedAt  DateTime?
+
+  @@index([tenantId, status])
+  @@index([status])
+}
+
+model TicketMessage {
+  id         String     @id @default(cuid())
+  ticketId   String
+  ticket     SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  authorType AuthorType
+  authorId   String // userId (Customer/Agent) ou "system"
+  content    String
+  createdAt  DateTime   @default(now())
+
+  @@index([ticketId, createdAt])
+}
+
+// =============================================================================
+// OBSERVABILIDADE / COMPLIANCE
+// =============================================================================
+
+model UsageMetric {
+  id          String   @id @default(cuid())
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  metric      String // "messages_sent" | "messages_received" | "instance_connected" | "campaign_sent"
+  value       Int      @default(1)
+  metadata    String? // JSON opcional
+  periodStart DateTime // bucket (hora/dia/mês)
+  createdAt   DateTime @default(now())
+
+  @@index([tenantId, metric, periodStart])
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  tenantId   String?
+  tenant     Tenant?  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action     String // "instance.created" | "billing.subscription.canceled" | "user.login" | ...
+  targetType String? // "WhatsAppInstance" | "Subscription" | "User"
+  targetId   String?
+  metadata   String? // JSON
+  ipAddress  String?
+  userAgent  String?
+
+  createdAt DateTime @default(now())
+
+  @@index([tenantId, createdAt])
+  @@index([userId, createdAt])
+  @@index([action, createdAt])
 }
