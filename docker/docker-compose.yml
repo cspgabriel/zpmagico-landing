@@ -25,7 +25,7 @@ services:
       - evolution_redisdata:/data
 
   evolution-api:
-    image: evolutionapi/evolution-api:v2.3.7
+    image: evolution-api:local-2.3.7
     container_name: evolution_api
     restart: unless-stopped
     depends_on:

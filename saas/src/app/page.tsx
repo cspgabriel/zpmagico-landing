@@ -1,7 +1,18 @@
-import { MessageCircle, ShieldCheck, Zap, Activity, BookOpen, Terminal, Cpu } from 'lucide-react';
+import { MessageCircle, Zap, Activity, BookOpen, Terminal, Cpu, Users, Megaphone } from 'lucide-react';
 import Link from 'next/link';
+import { prisma } from '@/lib/prisma';
 
-export default function Home() {
+export const revalidate = 0; // Garantir carregamento dinâmico sem cache no dashboard
+
+export default async function Home() {
+  // Consultar dados do banco SQLite local de forma síncrona
+  const totalContacts = await prisma.contact.count().catch(() => 0);
+  const totalMessages = await prisma.chatMessage.count().catch(() => 0);
+  const totalInstances = await prisma.whatsAppInstance.count().catch(() => 0);
+  const activeInstances = await prisma.whatsAppInstance.count({
+    where: { connectionStatus: 'connected' }
+  }).catch(() => 0);
+  
   return (
     <div className="space-y-8">
       {/* Mensagem de Boas-Vindas */}
@@ -13,55 +24,62 @@ export default function Home() {
           <span className="bg-emerald-500/30 text-emerald-100 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider">
             ZAP MÁGICO OFICIAL 2026
           </span>
-          <h1 className="text-3xl font-bold tracking-tight">Bem-vindo ao seu painel SaaS de WhatsApp!</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Painel SaaS Integrado Evolution API</h1>
           <p className="text-emerald-100 text-sm">
-            Esta é a base de um software Multi-Conta integrado à Evolution API. Cada conta (Tenant) gerencia suas instâncias do WhatsApp de forma isolada, persistindo dados com total segurança.
+            Toda a plataforma está integrada de verdade a um banco de dados SQLite local. As conexões do WhatsApp são reais, os contatos persistem no banco de dados e as mensagens são atualizadas via webhooks!
           </p>
-          <div className="pt-2">
+          <div className="pt-2 flex gap-3">
             <Link
               href="/whatsapp"
               className="inline-flex items-center gap-2 bg-white text-emerald-700 px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-emerald-50 transition shadow"
             >
               <Zap className="w-4 h-4 fill-emerald-700" />
-              Conectar meu WhatsApp
+              WhatsApp Conexões
+            </Link>
+            <Link
+              href="/chat"
+              className="inline-flex items-center gap-2 bg-emerald-700/50 text-white border border-emerald-500/30 px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-emerald-700/70 transition"
+            >
+              <MessageCircle className="w-4 h-4" />
+              Chat Inbox
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Grid de Estatísticas */}
+      {/* Grid de Estatísticas REAIS */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         
         <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-semibold text-slate-500">Conexões Ativas</span>
+            <span className="text-sm font-semibold text-slate-500">WhatsApp Conexões</span>
             <span className="p-2 rounded-xl bg-emerald-50 text-emerald-600"><Zap className="w-5 h-5" /></span>
           </div>
           <div className="mt-4">
-            <span className="text-3xl font-bold text-slate-800">2 / 5</span>
-            <p className="text-xs text-slate-500 mt-1">Contas pareadas no servidor</p>
+            <span className="text-3xl font-bold text-slate-800">{activeInstances} / {totalInstances}</span>
+            <p className="text-xs text-slate-500 mt-1">Conectadas / Cadastradas</p>
           </div>
         </div>
 
         <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-semibold text-slate-500">Mensagens (Mês)</span>
-            <span className="p-2 rounded-xl bg-blue-50 text-blue-600"><MessageCircle className="w-5 h-5" /></span>
+            <span className="text-sm font-semibold text-slate-500">Contatos (CRM)</span>
+            <span className="p-2 rounded-xl bg-blue-50 text-blue-600"><Users className="w-5 h-5" /></span>
           </div>
           <div className="mt-4">
-            <span className="text-3xl font-bold text-slate-800">14.820</span>
-            <p className="text-xs text-slate-500 mt-1">Disparadas via API local</p>
+            <span className="text-3xl font-bold text-slate-800">{totalContacts}</span>
+            <p className="text-xs text-slate-500 mt-1">Contatos salvos no SQLite</p>
           </div>
         </div>
 
         <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-semibold text-slate-500">Uso de Memória</span>
-            <span className="p-2 rounded-xl bg-purple-50 text-purple-600"><Cpu className="w-5 h-5" /></span>
+            <span className="text-sm font-semibold text-slate-500">Mensagens do Chat</span>
+            <span className="p-2 rounded-xl bg-purple-50 text-purple-600"><MessageCircle className="w-5 h-5" /></span>
           </div>
           <div className="mt-4">
-            <span className="text-3xl font-bold text-slate-800">240 MB</span>
-            <p className="text-xs text-slate-500 mt-1">Consumo da Evolution local</p>
+            <span className="text-3xl font-bold text-slate-800">{totalMessages}</span>
+            <p className="text-xs text-slate-500 mt-1">Mensagens trocadas via API</p>
           </div>
         </div>
 
@@ -72,7 +90,7 @@ export default function Home() {
           </div>
           <div className="mt-4">
             <span className="text-3xl font-bold text-slate-800">100% ONLINE</span>
-            <p className="text-xs text-slate-500 mt-1">Servidor local na porta 8083</p>
+            <p className="text-xs text-slate-500 mt-1">Porta 8083 (Docker ativa)</p>
           </div>
         </div>
 
@@ -85,41 +103,36 @@ export default function Home() {
         <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm lg:col-span-2 space-y-4">
           <h2 className="font-bold text-slate-800 text-lg flex items-center gap-2">
             <Terminal className="w-5 h-5 text-emerald-600" />
-            Guia Rápido: Rodando na sua VPS
+            Estrutura de Produção na VPS
           </h2>
           <p className="text-slate-500 text-sm">
-            Este monorepo foi planejado para ser clonado diretamente no seu servidor. Veja os comandos básicos para subir o ecossistema completo:
+            Este monorepo privado está pronto para deploy direto na VPS a partir do GitHub. Os scripts batch na raiz ajudam na sua máquina local:
           </p>
           <div className="bg-slate-900 rounded-xl p-4 text-xs font-mono text-emerald-400 space-y-2 overflow-x-auto">
-            <p># 1. Clone o repositório na VPS</p>
-            <p className="text-white">git clone https://github.com/cspgabriel/zap-magico-oficial-2026.git</p>
-            <p># 2. Acesse a pasta docker e inicie o Evolution stack</p>
-            <p className="text-white">cd zap-magico-oficial-2026/docker && docker compose up -d</p>
-            <p># 3. Acesse a pasta saas, instale e rode o build</p>
-            <p className="text-white">cd ../saas && npm install && npm run build</p>
+            <p># Para rodar localmente no Windows:</p>
+            <p className="text-white">1. Abra o Docker Desktop</p>
+            <p className="text-white">2. Execute iniciar_docker.bat (sobe Evolution API local na porta 8083)</p>
+            <p className="text-white">3. Execute iniciar_saas.bat (abre o SaaS na porta 3001)</p>
           </div>
-          <p className="text-slate-400 text-xs">
-            * Certifique-se de configurar as variáveis de ambiente no arquivo <code>docker/.env</code> antes de subir o docker.
-          </p>
         </div>
 
-        {/* Card Arquitetura Multi-Tenant */}
+        {/* Card Informações Adicionais */}
         <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
           <div className="space-y-3">
             <h2 className="font-bold text-slate-800 text-lg flex items-center gap-2">
               <BookOpen className="w-5 h-5 text-emerald-600" />
-              Arquitetura de Isolamento
+              Multi-Tenancy Isolado
             </h2>
             <p className="text-slate-500 text-sm">
-              Consulte a documentação completa de arquitetura contida na pasta <code>docs/architecture_multi_tenant_saas.md</code> para entender o fluxo de banco de dados, mapeamento de tenants no Prisma e webhooks globais.
+              Alternando o cliente no seletor de contas, você vê apenas os contatos, mensagens e conexões de WhatsApp daquela conta específica.
             </p>
           </div>
-          <div className="pt-4">
-            <Link
-              href="/whatsapp"
-              className="text-emerald-600 font-bold hover:text-emerald-700 text-sm inline-flex items-center gap-1"
-            >
-              Ir para conexões →
+          <div className="pt-4 flex gap-4">
+            <Link href="/contacts" className="text-emerald-600 font-bold hover:text-emerald-700 text-xs">
+              Ver Contatos →
+            </Link>
+            <Link href="/chat" className="text-teal-600 font-bold hover:text-teal-700 text-xs">
+              Abrir Chat Inbox →
             </Link>
           </div>
         </div>

@@ -1,0 +1,91 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Tenant {
+  id        String             @id @default(uuid())
+  name      String
+  plan      String             @default("free") // 'free', 'pro', 'enterprise'
+  status    String             @default("active")
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  users     User[]
+  instances WhatsAppInstance[]
+  contacts  Contact[]
+  messages  ChatMessage[]
+  campaigns Campaign[]
+}
+
+model User {
+  id        String   @id @default(uuid())
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name      String
+  email     String   @unique
+  role      String   @default("member") // 'admin', 'member'
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model WhatsAppInstance {
+  id               String        @id @default(uuid())
+  tenantId         String
+  tenant           Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  instanceName     String        @unique // Ex: saas_tenant_alfa_financeiro
+  connectionStatus String        @default("disconnected") // 'connected', 'disconnected', 'connecting'
+  phoneNumber      String?
+  qrcodeUrl        String?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  messages         ChatMessage[]
+  campaigns        Campaign[]
+}
+
+model Contact {
+  id        String        @id @default(uuid())
+  tenantId  String
+  tenant    Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name      String
+  number    String // Número do WhatsApp: Ex: 5521993165605
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  messages  ChatMessage[]
+
+  @@unique([tenantId, number]) // Contato único por cliente do SaaS
+}
+
+model ChatMessage {
+  id         String           @id @default(uuid())
+  tenantId   String
+  tenant     Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  instanceId String
+  instance   WhatsAppInstance @relation(fields: [instanceId], references: [id], onDelete: Cascade)
+  contactId  String?
+  contact    Contact?         @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  messageId  String // ID retornado pelo WhatsApp (key.id)
+  sender     String // Quem enviou
+  receiver   String // Quem recebeu
+  content    String // Conteúdo de texto
+  direction  String // 'inbound' ou 'outbound'
+  timestamp  DateTime         @default(now())
+}
+
+model Campaign {
+  id         String           @id @default(uuid())
+  tenantId   String
+  tenant     Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  instanceId String
+  instance   WhatsAppInstance @relation(fields: [instanceId], references: [id], onDelete: Cascade)
+  name       String
+  message    String
+  status     String           @default("pending") // 'pending', 'sending', 'completed', 'failed'
+  sentCount  Int              @default(0)
+  failCount  Int              @default(0)
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+}
