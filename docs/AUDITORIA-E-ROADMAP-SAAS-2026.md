@@ -202,10 +202,17 @@ curl "http://localhost:3001/api/whatsapp?route=/instance/connect/saas_tenant_alf
   -H "x-api-key: ..."
 ```
 
-## Anexo B — Referências
+## Anexo B — Documentos Relacionados
 
+- [Sistema Pronto — Roadmap do Motor Interno](./SISTEMA-PRONTO-ROADMAP.md) — **LEIA PRIMEIRO**: define o que falta do motor antes da vitrine (LP/auth público/onboarding). Estrutura de rotas, schema Prisma completo, ordem de implementação em sprints.
 - [Architecture Multi-Tenant](./architecture_multi_tenant_saas.md) — documento original com modelagem de dados e fluxo de webhooks
 - [Evolution API Docs](https://doc.evolution-api.com/) — referência da API
 - [NextAuth.js](https://next-auth.js.org/) — autenticação recomendada para Next.js
 - [Asaas](https://docs.asaas.com/) — gateway de pagamento brasileiro
 - [LGPD](https://www.gov.br/cidadania/pt-br/acesso-a-informacao/lgpd) — Lei Geral de Proteção de Dados
+
+---
+
+## Princípio de Ordem: Motor Antes de Vitrine
+
+Este roadmap de 3 fases foca no **motor técnico** (auth, billing, multi-tenant, observabilidade). Vitrine (LP, signup público, onboarding wizard, OAuth Google) **só vem depois** que o motor estiver sólido. Detalhes completos em [SISTEMA-PRONTO-ROADMAP.md](./SISTEMA-PRONTO-ROADMAP.md).
