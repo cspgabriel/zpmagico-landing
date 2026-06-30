@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WhatsZap Mágico — A Revolução da Automação no WhatsApp</title>
+<meta name="description" content="Disparo em massa, extratores, IA para atendimento 24h e proteção anti-ban. Tudo em um só lugar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --bg2: #101018;
+  --surface: rgba(255,255,255,0.04);
+  --surface2: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.08);
+  --muted: #8a8a9a;
+  --text: #e8e8f0;
+  --neon-green: #00ff88;
+  --neon-blue: #00d4ff;
+  --green-dim: rgba(0,255,136,0.12);
+  --blue-dim: rgba(0,212,255,0.10);
+  --font: 'Inter', system-ui, sans-serif;
+  --font-display: 'Sora', 'Inter', system-ui, sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:var(--font); background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+::selection { background:var(--neon-green); color:#000; }
+
+/* ── NAV ── */
+nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:12px 24px; display:flex; align-items:center; justify-content:space-between; background:rgba(10,10,15,0.8); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); }
+.logo { font-family:var(--font-display); font-weight:800; font-size:20px; letter-spacing:-0.5px; background:linear-gradient(135deg,var(--neon-green),var(--neon-blue)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+nav .cta { padding:8px 20px; border-radius:8px; background:linear-gradient(135deg,var(--neon-green),#00cc6a); color:#000; font-weight:700; font-size:13px; text-decoration:none; transition:transform .15s, box-shadow .15s; }
+nav .cta:hover { transform:scale(1.05); box-shadow:0 0 24px rgba(0,255,136,0.3); }
+
+/* ── SECTIONS ── */
+section { padding:80px 20px; }
+@media (max-width:640px) { section { padding:56px 16px; } }
+.section { max-width:1120px; margin:0 auto; }
+h2 { font-family:var(--font-display); font-size:clamp(26px,4vw,42px); font-weight:800; margin-bottom:12px; letter-spacing:-0.5px; }
+.lead { font-size:16px; color:var(--muted); line-height:1.65; max-width:640px; margin-bottom:40px; }
+
+/* ── HERO ── */
+.hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:120px 20px 80px; position:relative; overflow:hidden; }
+.hero::before { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background:radial-gradient(ellipse at 30% 20%, rgba(0,255,136,0.06) 0%, transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(0,212,255,0.05) 0%, transparent 50%); pointer-events:none; }
+.badge { display:inline-flex; align-items:center; gap:6px; background:var(--green-dim); border:1px solid rgba(0,255,136,0.2); padding:6px 16px; border-radius:100px; font-size:12px; font-weight:600; color:var(--neon-green); margin-bottom:24px; letter-spacing:0.5px; }
+.badge::before { content:'⚡'; }
+.hero h1 { font-family:var(--font-display); font-size:clamp(32px,6vw,64px); font-weight:800; line-height:1.1; max-width:800px; margin-bottom:16px; letter-spacing:-1px; }
+.hero h1 .g { background:linear-gradient(135deg,var(--neon-green),var(--neon-blue)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; display:inline; }
+.hero .sub { font-size:clamp(15px,2vw,19px); color:var(--muted); max-width:580px; line-height:1.65; margin-bottom:32px; }
+.hero .tags { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:28px; }
+.hero .tags span { background:var(--surface); border:1px solid var(--border); padding:4px 14px; border-radius:100px; font-size:12px; color:var(--muted); }
+
+.price-block { margin-bottom:24px; }
+.price-block .de { font-size:18px; color:var(--muted); text-decoration:line-through; margin-bottom:2px; }
+.price-block .valor { font-size:56px; font-weight:900; background:linear-gradient(135deg,var(--neon-green),#00cc6a); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-family:var(--font-display); line-height:1; }
+.price-block .parcel { font-size:14px; color:var(--muted); margin-top:4px; }
+
+.cta-main { display:inline-block; padding:18px 48px; border-radius:12px; background:linear-gradient(135deg,var(--neon-green),#00cc6a); color:#000; font-weight:800; font-size:17px; text-decoration:none; transition:transform .15s, box-shadow .15s; margin-bottom:14px; animation:pulse-glow 2.5s ease-in-out infinite; }
+.cta-main:hover { transform:translateY(-2px); box-shadow:0 0 40px rgba(0,255,136,0.4); }
+@keyframes pulse-glow { 0%,100% { box-shadow:0 0 20px rgba(0,255,136,0.2); } 50% { box-shadow:0 0 40px rgba(0,255,136,0.5); } }
+.hero .garant { font-size:13px; color:var(--muted); display:flex; align-items:center; gap:6px; justify-content:center; }
+
+/* ── PROOF BAR ── */
+.proof-bar { background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:24px 20px; }
+.proof-bar .inner { max-width:1120px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+.proof-bar .label { font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); }
+.proof-bar .stats { display:flex; gap:32px; flex-wrap:wrap; }
+.proof-bar .stat { text-align:center; }
+.proof-bar .stat .num { font-size:20px; font-weight:800; color:var(--neon-green); }
+.proof-bar .stat .desc { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; }
+
+/* ── PROBLEM ── */
+.problem-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; }
+.prob-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px; transition:border-color .2s, transform .2s; }
+.prob-card:hover { border-color:rgba(0,255,136,0.2); transform:translateY(-2px); }
+.prob-card .icon { font-size:32px; margin-bottom:12px; }
+.prob-card h4 { font-size:16px; font-weight:700; margin-bottom:6px; }
+.prob-card p { font-size:14px; color:var(--muted); line-height:1.6; }
+
+/* ── FEATURES ── */
+.features { background:var(--bg2); }
+.features-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:12px; }
+.feature-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px; transition:border-color .2s, transform .2s; position:relative; overflow:hidden; }
+.feature-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--neon-green),transparent); opacity:0; transition:opacity .3s; }
+.feature-card:hover::before { opacity:1; }
+.feature-card:hover { border-color:rgba(0,255,136,0.15); transform:translateY(-2px); }
+.feature-card .icon { font-size:28px; margin-bottom:10px; }
+.feature-card h4 { font-size:15px; font-weight:700; margin-bottom:6px; }
+.feature-card p { font-size:13px; color:var(--muted); line-height:1.6; }
+
+/* ── ANTI-BAN ── */
+.anti-ban { background:linear-gradient(135deg,var(--bg),rgba(0,255,136,0.03),var(--bg)); border-radius:24px; padding:60px 40px; margin:40px auto; max-width:960px; text-align:center; border:1px solid rgba(0,255,136,0.1); position:relative; }
+.anti-ban::before { content:'🛡️'; font-size:48px; display:block; margin-bottom:12px; }
+.anti-ban h3 { font-family:var(--font-display); font-size:28px; font-weight:800; margin-bottom:12px; }
+.anti-ban h3 span { color:var(--neon-green); }
+.anti-ban p { color:var(--muted); font-size:15px; max-width:680px; margin:0 auto 24px; line-height:1.65; }
+.anti-ban .checks { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+.anti-ban .checks span { background:var(--green-dim); color:var(--neon-green); padding:6px 16px; border-radius:100px; font-size:13px; font-weight:600; display:flex; align-items:center; gap:6px; }
+
+/* ── COMPARISON ── */
+.comparison { background:var(--bg2); }
+.tabela-comp { max-width:700px; margin:0 auto; border-radius:16px; overflow:hidden; border:1px solid var(--border); }
+.tabela-comp .row { display:grid; grid-template-columns:1fr 1fr 1fr; border-bottom:1px solid var(--border); }
+.tabela-comp .row:last-child { border-bottom:0; }
+.tabela-comp .row.header { background:var(--surface); font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:1px; padding:16px 20px; color:var(--muted); }
+.tabela-comp .row .col { padding:14px 20px; font-size:14px; display:flex; align-items:center; gap:6px; }
+.tabela-comp .row .col:first-child { color:var(--muted); font-size:13px; }
+.tabela-comp .row .col .check { color:var(--neon-green); }
+.tabela-comp .row .col .x { color:#ff4444; }
+.tabela-comp .row .col .highlight { color:var(--neon-green); font-weight:700; }
+
+/* ── TESTIMONIALS ── */
+.testimonials { overflow:hidden; }
+.test-carousel { display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; padding-bottom:12px; scrollbar-width:none; }
+.test-carousel::-webkit-scrollbar { display:none; }
+.test-card { min-width:300px; max-width:340px; scroll-snap-align:start; background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:24px; flex-shrink:0; }
+.test-card .stars { color:#f5b342; font-size:14px; margin-bottom:8px; }
+.test-card blockquote { font-size:14px; color:var(--text); line-height:1.65; margin-bottom:12px; }
+.test-card .author { display:flex; align-items:center; gap:10px; }
+.test-card .author .avatar { width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,var(--neon-green),var(--neon-blue)); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px; color:#000; }
+.test-card .author .name { font-size:13px; font-weight:600; }
+.test-card .author .role { font-size:11px; color:var(--muted); }
+
+/* ── PARA QUEM ── */
+.quadro-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+@media (max-width:640px) { .quadro-grid { grid-template-columns:1fr; } }
+.quadro { background:var(--surface); border-radius:14px; padding:28px; border:1px solid var(--border); }
+.quadro.sim .titulo { color:var(--neon-green); font-weight:800; font-size:13px; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:16px; }
+.quadro.nao .titulo { color:#ff4444; font-weight:800; font-size:13px; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:16px; }
+.quadro li { list-style:none; font-size:14px; color:var(--muted); margin-bottom:10px; padding-left:22px; position:relative; }
+.quadro.sim li::before { content:'✓'; position:absolute; left:0; color:var(--neon-green); font-weight:bold; }
+.quadro.nao li::before { content:'✗'; position:absolute; left:0; color:#ff4444; }
+
+/* ── OFFER ── */
+.offer-section { background:linear-gradient(180deg,var(--bg2),var(--bg)); }
+.offer-box { background:var(--surface); border:1px solid rgba(0,255,136,0.15); border-radius:24px; max-width:560px; margin:0 auto; padding:48px 40px; text-align:center; position:relative; overflow:hidden; }
+.offer-box::before { content:''; position:absolute; top:-2px; left:10%; right:10%; height:2px; background:linear-gradient(90deg,transparent,var(--neon-green),transparent); }
+.offer-box .urgency { display:inline-flex; align-items:center; gap:6px; background:rgba(255,68,68,0.1); border:1px solid rgba(255,68,68,0.2); padding:6px 14px; border-radius:100px; font-size:12px; font-weight:600; color:#ff4444; margin-bottom:20px; }
+.offer-box .vt-label { font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); margin-bottom:4px; }
+.offer-box .de { font-size:20px; color:var(--muted); text-decoration:line-through; margin-bottom:2px; }
+.offer-box .por { font-size:72px; font-weight:900; background:linear-gradient(135deg,var(--neon-green),#00cc6a); -webkit-background-clip:text; -webkit-text-fill-color:transparent; line-height:1.1; font-family:var(--font-display); margin-bottom:4px; }
+.offer-box .por small { font-size:28px; }
+.offer-box .parcelas { color:var(--muted); font-size:15px; margin-bottom:6px; }
+.offer-box .timer { font-size:13px; color:var(--neon-green); font-weight:700; margin-bottom:20px; }
+.offer-box .pag-seguro { display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--muted); margin-bottom:24px; }
+.offer-box .cta-grande { display:block; padding:20px 32px; border-radius:12px; background:linear-gradient(135deg,var(--neon-green),#00cc6a); color:#000; font-weight:800; font-size:18px; text-decoration:none; transition:transform .15s, box-shadow .15s; margin-bottom:14px; animation:pulse-glow 2.5s ease-in-out infinite; }
+.offer-box .cta-grande:hover { transform:translateY(-2px); box-shadow:0 0 40px rgba(0,255,136,0.4); }
+.offer-box .garant { font-size:13px; color:var(--muted); display:flex; align-items:center; gap:6px; justify-content:center; margin-bottom:20px; }
+.offer-box .bonus-section { background:var(--surface2); border-radius:12px; padding:20px; margin-top:20px; }
+.offer-box .bonus-section h5 { font-size:13px; font-weight:700; color:var(--neon-blue); margin-bottom:10px; text-transform:uppercase; letter-spacing:1px; }
+.offer-box .bonus-section ul { text-align:left; }
+.offer-box .bonus-section li { list-style:none; font-size:13px; color:var(--muted); padding:4px 0; padding-left:20px; position:relative; }
+.offer-box .bonus-section li::before { content:'🎁'; position:absolute; left:0; }
+
+/* ── GARANTIA ── */
+.garantia-box { background:var(--surface); border:2px solid rgba(0,255,136,0.15); border-radius:16px; max-width:560px; margin:0 auto; padding:40px; text-align:center; }
+.garantia-box h3 { font-family:var(--font-display); font-size:22px; font-weight:800; color:var(--neon-green); margin-bottom:12px; }
+.garantia-box p { color:var(--muted); font-size:14px; line-height:1.65; }
+
+/* ── FAQ ── */
+.faq-section { background:var(--bg2); }
+.faq-list { max-width:680px; margin:0 auto; }
+.faq-item { border-bottom:1px solid var(--border); padding:18px 0; }
+.faq-item .perg { font-size:15px; font-weight:600; cursor:pointer; display:flex; justify-content:space-between; align-items:center; color:var(--text); }
+.faq-item .perg .seta { color:var(--neon-green); font-size:20px; transition:transform .2s; flex-shrink:0; margin-left:12px; }
+.faq-item.open .seta { transform:rotate(45deg); }
+.faq-item .resp { font-size:14px; color:var(--muted); display:none; margin-top:10px; line-height:1.65; max-width:90%; }
+.faq-item.open .resp { display:block; }
+
+/* ── CTA FINAL ── */
+.cta-final { background:radial-gradient(ellipse at 50% 100%, rgba(0,255,136,0.08) 0%, transparent 60%); padding:80px 20px; text-align:center; }
+.cta-final h2 { font-size:clamp(26px,4vw,44px); font-weight:900; margin-bottom:12px; }
+.cta-final p { color:var(--muted); font-size:16px; max-width:540px; margin:0 auto 28px; }
+.cta-final a { display:inline-block; padding:18px 56px; border-radius:12px; background:linear-gradient(135deg,var(--neon-green),#00cc6a); color:#000; font-weight:800; font-size:17px; text-decoration:none; transition:transform .15s, box-shadow .15s; animation:pulse-glow 2.5s ease-in-out infinite; }
+.cta-final a:hover { transform:translateY(-2px); box-shadow:0 0 40px rgba(0,255,136,0.4); }
+
+/* ── FOOTER ── */
+footer { background:var(--surface); border-top:1px solid var(--border); padding:32px 20px; text-align:center; }
+footer p { color:var(--muted); font-size:12px; }
+footer a { color:var(--neon-green); text-decoration:none; }
+
+/* ── STICKY MOBILE CTA ── */
+.sticky-cta { display:none; }
+@media (max-width:640px) {
+  .sticky-cta { display:block; position:fixed; bottom:0; left:0; right:0; z-index:99; padding:10px 16px; background:rgba(10,10,15,0.95); backdrop-filter:blur(12px); border-top:1px solid var(--border); }
+  .sticky-cta a { display:block; text-align:center; padding:14px; border-radius:10px; background:linear-gradient(135deg,var(--neon-green),#00cc6a); color:#000; font-weight:800; font-size:15px; text-decoration:none; }
+  body { padding-bottom:70px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">WhatsZap<span style="-webkit-text-fill-color:#fff"> Mágico</span></div>
+  <a href="#oferta" class="cta">QUERO AGORA →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="badge">+2.300 usuários ativos</div>
+  <h1>O jeito mais inteligente de <span class="g">automatizar seu WhatsApp</span></h1>
+  <p class="sub">Disparo em massa com segurança anti-ban, extratores de dados, IA para atendimento 24h e muito mais. A central de automação que sua empresa merece.</p>
+  <div class="tags">
+    <span>📱 Disparo em Massa</span>
+    <span>🛡️ Anti-Ban</span>
+    <span>🤖 IA 24h</span>
+    <span>📊 Extratores</span>
+    <span>⚡ Multi-Instância</span>
+  </div>
+  <div class="price-block">
+    <div class="de">De R$ 97,00/mês</div>
+    <div class="valor">12x R$ 19,90</div>
+    <div class="parcel">ou R$ 197,90 à vista · Teste grátis 24h · 15 dias de garantia</div>
+  </div>
+  <a href="#oferta" class="cta-main">🔥 QUERO AUTOMATIZAR MEU WHATSAPP</a>
+  <div class="garant">🛡️ 15 dias de garantia incondicional · Acesso imediato</div>
+</section>
+
+<!-- PROOF BAR -->
+<div class="proof-bar">
+  <div class="inner">
+    <div class="label">Resultados dos nossos usuários</div>
+    <div class="stats">
+      <div class="stat"><div class="num">+46 mil</div><div class="desc">Mensagens/dia</div></div>
+      <div class="stat"><div class="num">99,7%</div><div class="desc">Taxa de entrega</div></div>
+      <div class="stat"><div class="num">12</div><div class="desc">Instâncias simultâneas</div></div>
+      <div class="stat"><div class="num">0</div><div class="desc">Bloqueios na conta</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEMA / AGITAÇÃO / SOLUÇÃO -->
+<section class="section">
+  <h2>Você ainda está perdendo clientes?</h2>
+  <p class="lead">Responder manual, planilha bagunçada, conta bloqueada, lead esquecido. Toda vez que você demora, um concorrente atende.</p>
+  <div class="problem-grid">
+    <div class="prob-card">
+      <div class="icon">😤</div>
+      <h4>"Vou perder minha conta"</h4>
+      <p>Usou qualquer ferramenta e tomou bloqueio. O medo de perder o contato com seus clientes te paralisa — e você segue na mão, perdendo tempo.</p>
+    </div>
+    <div class="prob-card">
+      <div class="icon">⏰</div>
+      <h4>"Não dou conta dos leads"</h4>
+      <p>Enquanto você responde um, outros 5 chamam. Lead sem resposta em 5 minutos = concorrente fecha a venda. Você perde por lentidão.</p>
+    </div>
+    <div class="prob-card">
+      <div class="icon">📉</div>
+      <h4>"Meu disparo não entrega"</h4>
+      <p>Número queimado, bloqueio silencioso, mensagem caindo no spam. Você investe em disparo mas ninguém recebe — seu esforço vira pó.</p>
+    </div>
+    <div class="prob-card">
+      <div class="icon">🔧</div>
+      <h4>"Só ferramenta complicada"</h4>
+      <p>Tutorial de 2 horas, API que não conecta, suporte que demora 3 dias. Você quer resolver, não virar programador de WhatsApp.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES GRID -->
+<section class="features">
+  <div class="section">
+    <h2>Tudo que você precisa em um só lugar</h2>
+    <p class="lead">12 módulos integrados em uma plataforma. Do disparo ao atendimento, do extrator ao relatório.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="icon">📤</div>
+        <h4>Disparo em Massa Inteligente</h4>
+        <p>Envie campanhas com delay aleatório, pausas programadas e rotação de instâncias. Sua conta nunca fica exposta.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🛡️</div>
+        <h4>Proteção Anti-Ban</h4>
+        <p>Simula comportamento humano real. Limites dinâmicos, pausas automáticas, detecção de comportamento suspeito antes do WhatsApp agir.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🤖</div>
+        <h4>IA de Atendimento 24h</h4>
+        <p>Chatbot inteligente que qualifica, responde perguntas frequentes e agenda. Enquanto você dorme, ela vende.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🔍</div>
+        <h4>Extrator de Grupos</h4>
+        <p>Extraia números de participantes de grupos automaticamente. Monte listas qualificadas sem digitar um número sequer.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">📍</div>
+        <h4>Extrator por Geolocalização</h4>
+        <p>Capture números de estabelecimentos próximos ao seu negócio. Ideal para prospecção local com alto índice de conversão.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">👥</div>
+        <h4>Multi-Instância</h4>
+        <p>Gerencie dezenas de números em um só painel. Cada instância independente com suas próprias configurações e proteções.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">📊</div>
+        <h4>Relatórios Detalhados</h4>
+        <p>Entregas, aberturas, cliques, respostas — tudo medido em tempo real. Saiba exatamente o que está funcionando.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🏷️</div>
+        <h4>Etiquetas e Segmentação</h4>
+        <p>Organize contatos por origem, interesse, estágio. Dispare a mensagem certa para a pessoa certa no momento certo.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">📁</div>
+        <h4>Importação em Lote</h4>
+        <p>CSV, TXT ou colar direto. Aceita qualquer formato. O sistema limpa duplicatas e valida números automaticamente.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">💾</div>
+        <h4>Backup Automático</h4>
+        <p>Contatos, conversas, configurações — tudo salvo na nuvem. Mude de dispositivo sem perder nada.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🔐</div>
+        <h4>Modo Anônimo</h4>
+        <p>Navegação criptografada, sem armazenamento local de sessão. Privacidade total para suas operações.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🔗</div>
+        <h4>API para Integrações</h4>
+        <p>REST API completa. Conecte com seu CRM, plataforma de disparo ou sistema interno. Documentação inclusa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANTI-BAN DIFFERENTIAL -->
+<section class="section">
+  <div class="anti-ban">
+    <h3>🛡️ <span>Proteção Anti-Ban</span> que funciona de verdade</h3>
+    <p>Enquanto outras ferramentas queimam seu número em 24h, o WhatsZap Mágico usa inteligência comportamental para parecer humano — sempre. Nossa taxa de bloqueio é <strong style="color:var(--neon-green);">0,3%</strong> contra <strong style="color:#ff4444;">37%</strong> da média do mercado.</p>
+    <div class="checks">
+      <span>✓ Delay aleatório inteligente</span>
+      <span>✓ Pausas programadas</span>
+      <span>✓ Rotação de instâncias</span>
+      <span>✓ Limite por hora dinâmico</span>
+      <span>✓ Evita comportamento padrão</span>
+      <span>✓ Alertas preventivos</span>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="comparison">
+  <div class="section">
+    <h2>WhatsZap Mágico vs Concorrência</h2>
+    <p class="lead">Veja por que mais de 2.300 usuários já migraram.</p>
+    <div class="tabela-comp">
+      <div class="row header">
+        <div class="col">Funcionalidade</div>
+        <div class="col" style="color:var(--neon-green);font-weight:800;">WhatsZap Mágico</div>
+        <div class="col">Concorrência</div>
+      </div>
+      <div class="row">
+        <div class="col">Proteção Anti-Ban</div>
+        <div class="col"><span class="check">✓</span> Avançada</div>
+        <div class="col"><span class="x">✗</span> Básica</div>
+      </div>
+      <div class="row">
+        <div class="col">IA para Atendimento</div>
+        <div class="col"><span class="check">✓</span> Inclusa</div>
+        <div class="col"><span class="x">✗</span> Separada (paga)</div>
+      </div>
+      <div class="row">
+        <div class="col">Extratores (Grupos + Geo)</div>
+        <div class="col"><span class="check">✓</span> Inclusos</div>
+        <div class="col"><span class="x">✗</span> Separados</div>
+      </div>
+      <div class="row">
+        <div class="col">Instâncias Ilimitadas</div>
+        <div class="col"><span class="check">✓</span> Sim</div>
+        <div class="col"><span class="x">✗</span> Limitado</div>
+      </div>
+      <div class="row">
+        <div class="col">Suporte Prioritário</div>
+        <div class="col"><span class="check">✓</span> 24h</div>
+        <div class="col"><span class="x">✗</span> Email</div>
+      </div>
+      <div class="row">
+        <div class="col">Garantia</div>
+        <div class="col"><span class="check">✓</span> 15 dias</div>
+        <div class="col"><span class="x">✗</span> 7 dias</div>
+      </div>
+      <div class="row">
+        <div class="col">Preço Justo</div>
+        <div class="col"><span class="highlight">R$ 19,90/mês</span></div>
+        <div class="col">R$ 97/mês</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials">
+  <h2>Quem usa, aprova</h2>
+  <p class="lead">O que nossos usuários estão falando.</p>
+  <div class="test-carousel" id="carousel">
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Uso para disparar campanhas de imóveis. Minha between de leads triplicou e não tomei um bloqueio sequer em 4 meses. Vale cada centavo."</blockquote>
+      <div class="author">
+        <div class="avatar">C</div>
+        <div><div class="name">Carlos M.</div><div class="role">Corretor Imobiliário</div></div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"O extrator de grupos + disparo salvou minha prospecção. Em 2 semanas gerei mais de 300 leads qualificados. Melhor investimento do ano."</blockquote>
+      <div class="author">
+        <div class="avatar">A</div>
+        <div><div class="name">Ana R.</div><div class="role">Head de Vendas</div></div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Tinha medo de bloqueio porque já perdi conta 2 vezes. Aqui estou há 8 meses com 3 números ativos. A IA de atendimento responde enquanto eu durmo."</blockquote>
+      <div class="author">
+        <div class="avatar">F</div>
+        <div><div class="name">Fernando L.</div><div class="role">Gerente Comercial</div></div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Testei 4 ferramentas antes. Ou queimava o número ou era complicada demais. O WhatsZap Mágico é simples e funciona. Uso todo santo dia."</blockquote>
+      <div class="author">
+        <div class="avatar">M</div>
+        <div><div class="name">Marina S.</div><div class="role">Empreendedora Digital</div></div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Desde que implantei aqui na imobiliária, minha equipe comercial passou de 5 para 40 visitas agendadas por semana. O disparo em massa + IA fez toda diferença."</blockquote>
+      <div class="author">
+        <div class="avatar">R</div>
+        <div><div class="name">Rafael T.</div><div class="role">Diretor Imobiliária</div></div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"O relatório de entregas salvou minha operação. Descobri que 30% dos meus contatos estavam com números inválidos. Limpei a base e minha conversão subiu 50%."</blockquote>
+      <div class="author">
+        <div class="avatar">P</div>
+        <div><div class="name">Paulo H.</div><div class="role">Marketing Diretor</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUEM -->
+<section class="section">
+  <h2>Isso é pra você se...</h2>
+  <p class="lead">WhatsZap Mágico é para quem leva vendas e comunicação a sério.</p>
+  <div class="quadro-grid">
+    <div class="quadro sim">
+      <div class="titulo">✅ É pra você</div>
+      <ul>
+        <li>Corretor que quer disparar imóveis sem tomar bloqueio</li>
+        <li>Hotel/pousada que envia ofertas com fotos via WhatsApp</li>
+        <li>Pizzaria/restaurante que dispara o cardápio todo dia</li>
+        <li>Lojista que manda promoções sem ser denunciado</li>
+        <li>Delivery que quer organizar pedidos e dar status automático</li>
+        <li>Imobiliária que extrai condôminos de grupos e oferta</li>
+      </ul>
+    </div>
+    <div class="quadro nao">
+      <div class="titulo">✗ Não é pra você</div>
+      <ul>
+        <li>Quer spammar 10 mil números em 5 minutos (e tomar ban)</li>
+        <li>Não tem produto ou serviço pra vender</li>
+        <li>Espera que a ferramenta venda sozinha sem estratégia</li>
+        <li>Não quer investir R$ 19,90 pra testar</li>
+        <li>Busca ferramenta gratuita cheia de limitações</li>
+        <li>Acha que automação WhatsApp é opcional</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="section">
+    <h2>Perguntas Frequentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="perg">O WhatsZap Mágico é seguro? Não vou tomar bloqueio?<span class="seta">+</span></div>
+        <div class="resp">Sim. O sistema foi construído com camadas de proteção anti-ban: delay aleatório inteligente, pausas programadas entre envios, limite dinâmico por hora e rotação automática de instâncias. Nossa taxa de bloqueio é de apenas 0,3% contra 37% da concorrência.</div>
+      </div>
+      <div class="faq-item">
+        <div class="perg">Preciso instalar algo no meu computador?<span class="seta">+</span></div>
+        <div class="resp">Não. Tudo funciona 100% online pelo painel web. Você só precisa do seu WhatsApp conectado via QR Code, igual o WhatsApp Web.</div>
+      </div>
+      <div class="faq-item">
+        <div class="perg">Quantos números posso conectar?<span class="seta">+</span></div>
+        <div class="resp">Quantos quiser. Cada instância é independente, com suas próprias configurações de proteção e envio. Você gerencia tudo em um só painel.</div>
+      </div>
+      <div class="faq-item">
+        <div class="perg">Como funciona a IA de atendimento?<span class="seta">+</span></div>
+        <div class="resp">Você configura respostas automáticas para perguntas frequentes, horários de funcionamento e gatilhos. A IA qualifica leads, responde dúvidas básicas e agenda no seu calendário. Se não souber responder, transfere pra você.</div>
+      </div>
+      <div class="faq-item">
+        <div class="perg">O que são os extratores?<span class="seta">+</span></div>
+        <div class="resp">São ferramentas que capturam números de WhatsApp automaticamente — de grupos (extrator de grupos) ou de estabelecimentos próximos a um endereço (extrator por geolocalização). Você monta listas segmentadas sem digitar nada.</div>
+      </div>
+      <div class="faq-item">
+        <div class="perg">Tem suporte se eu precisar de ajuda?<span class="seta">+</span></div>
+        <div class="resp">Sim. Suporte prioritário via WhatsApp com tempo médio de resposta de 3 minutos em horário comercial. Também temos base de conhecimento completa com tutoriais em vídeo.</div>
+      </div>
+      <div class="faq-item">
+        <div class="perg">Como funciona o teste grátis de 24h?<span class="seta">+</span></div>
+        <div class="resp">Você se cadastra, conecta seu WhatsApp e testa todas as funcionalidades por 24 horas sem pagar nada. Se gostar, mantém o plano. Se não, é só não continuar — sem compromisso.</div>
+      </div>
+      <div class="faq-item">
+        <div class="perg">E a garantia de 15 dias?<span class="seta">+</span></div>
+        <div class="resp">Se nos primeiros 15 dias de uso você não ficar satisfeito por qualquer motivo, a gente devolve 100% do seu dinheiro. Sem perguntas, sem burocracia. Risco zero.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER -->
+<section class="offer-section" id="oferta">
+  <div class="section">
+    <div class="offer-box">
+      <div class="urgency">⏰ Oferta por tempo limitado</div>
+      <div class="vt-label">Valor normal</div>
+      <div class="de">R$ 97,00/mês</div>
+      <div class="por"><small>R$</small> 19,90</div>
+      <div class="parcelas">12 parcelas de R$ 19,90 ou R$ 197,90 à vista</div>
+      <div class="timer" id="timer">⏳ Oferta encerra em 02:45:00</div>
+      <div class="pag-seguro">🔒 Pagamento 100% seguro via Stripe/MercadoPago</div>
+      <a href="#" class="cta-grande">🔥 QUERO MEU ACESSO AGORA</a>
+      <div class="garant">🛡️ Garantia incondicional de 15 dias · Risco zero</div>
+      <div class="bonus-section">
+        <h5>🎁 Bônus Exclusivos ao Assinar Hoje</h5>
+        <ul>
+          <li>20 templates de campanha prontos para disparo</li>
+          <li>Guia completo de proteção anti-ban (R$ 47 valor)</li>
+          <li>Suporte prioritário vitalício</li>
+          <li>1 hora de consultoria de automação</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GARANTIA -->
+<section>
+  <div class="section">
+    <div class="garantia-box">
+      <h3>🛡️ Garantia Incondicional de 15 Dias</h3>
+      <p>Assine, teste todas as funcionalidades por 15 dias. Se por qualquer motivo sentir que não atendeu suas expectativas, devolvemos 100% do seu dinheiro. Sem perguntas, sem burocracia. Risco zero para você.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <h2>Automatize seu WhatsApp agora.</h2>
+  <p>Mais de 2.300 usuários já transformaram suas vendas com a automação inteligente. O próximo pode ser você.</p>
+  <a href="#oferta">🔥 QUERO COMEÇAR AGORA</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>WhatsZap Mágico · Automatize. Venda. Escale.</p>
+  <p style="margin-top:6px;">© 2026 · Todos os direitos reservados · <a href="#">Termos</a> · <a href="#">Privacidade</a></p>
+  <p style="margin-top:6px;font-size:11px;">Produto digital — entrega por email após confirmação do pagamento.</p>
+</footer>
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky-cta">
+  <a href="#oferta">🔥 TESTAR GRÁTIS POR 24H</a>
+</div>
+
+<script>
+// FAQ toggle
+document.querySelectorAll('.faq-item .perg').forEach(el => {
+  el.addEventListener('click', () => el.parentElement.classList.toggle('open'));
+});
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior:'smooth', block:'center' });
+  });
+});
+// Countdown timer (2h45m from page load)
+(function() {
+  let total = 9900; // seconds
+  const el = document.getElementById('timer');
+  setInterval(() => {
+    if (total <= 0) { el.textContent = '⏳ Oferta encerrada'; return; }
+    total--;
+    const h = String(Math.floor(total / 3600)).padStart(2,'0');
+    const m = String(Math.floor((total % 3600) / 60)).padStart(2,'0');
+    const s = String(total % 60).padStart(2,'0');
+    el.textContent = `⏳ Oferta encerra em ${h}:${m}:${s}`;
+  }, 1000);
+})();
+</script>
+
+</body>
+</html>
