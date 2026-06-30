@@ -1,0 +1,15 @@
+{
+  "name": "zpmagico-landing",
+  "version": "1.0.0",
+  "description": "WhatsZap Mágico — Landing + Checkout Mercado Pago",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "mercadopago": "^2.0.16"
+  },
+  "devDependencies": {
+    "vercel": "^41.0.0"
+  }
+}

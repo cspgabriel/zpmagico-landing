@@ -223,7 +223,7 @@ footer a { color:var(--neon-green); text-decoration:none; }
   <div class="logo">WhatsZap<span style="-webkit-text-fill-color:var(--text)"> Mágico</span></div>
   <div class="nav-right">
     <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">🌙</button>
-    <a href="#oferta" class="cta">QUERO AGORA →</a>
+    <a href="#oferta" class="cta" style="text-decoration:none">VER PREÇOS →</a>
   </div>
 </nav>
 
@@ -240,11 +240,11 @@ footer a { color:var(--neon-green); text-decoration:none; }
     <span>⚡ Multi-Instância</span>
   </div>
   <div class="price-block">
-    <div class="de">De R$ 97,00/mês</div>
-    <div class="valor">12x R$ 19,90</div>
-    <div class="parcel">ou R$ 197,90 à vista · Teste grátis 24h · 15 dias de garantia</div>
+    <div class="de">De R$ 197,00</div>
+    <div class="valor">R$ 97</div>
+    <div class="parcel">em até 12x · Licença vitalícia · 15 dias de garantia</div>
   </div>
-  <a href="#oferta" class="cta-main">🔥 QUERO AUTOMATIZAR MEU WHATSAPP</a>
+  <button onclick="comprar()" class="cta-main" id="ctaHero">🔥 QUERO AUTOMATIZAR MEU WHATSAPP</button>
   <div class="garant">🛡️ 15 dias de garantia incondicional · Acesso imediato</div>
 </section>
 
@@ -258,6 +258,15 @@ footer a { color:var(--neon-green); text-decoration:none; }
       <div class="stat"><div class="num">12</div><div class="desc">Instâncias simultâneas</div></div>
       <div class="stat"><div class="num">0</div><div class="desc">Bloqueios na conta</div></div>
     </div>
+  </div>
+</div>
+
+<!-- DISCLAIMER: NÃO É API OFICIAL -->
+<div style="background:var(--surface);border:1px solid rgba(255,200,0,0.2);border-radius:12px;max-width:800px;margin:24px auto;padding:20px 24px;display:flex;align-items:flex-start;gap:14px;">
+  <div style="font-size:22px;flex-shrink:0;margin-top:2px;">⚠️</div>
+  <div>
+    <strong style="font-size:14px;display:block;margin-bottom:4px;">Este NÃO é a API Oficial do WhatsApp</strong>
+    <p style="font-size:13px;color:var(--muted);line-height:1.6;margin:0;">O WhatsZap Mágico é uma ferramenta independente que automatiza o WhatsApp Web para pequenas empresas, autônomos e empreendedores que ainda não têm condições de arcar com os custos da API Oficial (Business API). Não violamos termos — operamos como extensão do WhatsApp Web, igual milhares de empresas fazem no mundo todo. Recomendamos a API oficial do WhatsApp para empresas de médio/grande porte.</p>
   </div>
 </div>
 
@@ -417,8 +426,8 @@ footer a { color:var(--neon-green); text-decoration:none; }
         <div class="col"><span class="x">✗</span> 7 dias</div>
       </div>
       <div class="row">
-        <div class="col">Preço Justo</div>
-        <div class="col"><span class="highlight">R$ 19,90/mês</span></div>
+        <div class="col">Modelo de Pagamento</div>
+        <div class="col"><span class="highlight">Única vez — R$ 97</span></div>
         <div class="col">R$ 97/mês</div>
       </div>
     </div>
@@ -522,7 +531,7 @@ footer a { color:var(--neon-green); text-decoration:none; }
       </div>
       <div class="faq-item">
         <div class="perg">Preciso instalar algo no meu computador?<span class="seta">+</span></div>
-        <div class="resp">Não. Tudo funciona 100% online pelo painel web. Você só precisa do seu WhatsApp conectado via QR Code, igual o WhatsApp Web.</div>
+        <div class="resp">Sim, você baixa e instala o aplicativo WhatsZap Mágico no seu PC (Windows). Após a confirmação do pagamento, enviamos o link de download por email e você pode baixar direto da nossa página de confirmação.</div>
       </div>
       <div class="faq-item">
         <div class="perg">Quantos números posso conectar?<span class="seta">+</span></div>
@@ -541,8 +550,8 @@ footer a { color:var(--neon-green); text-decoration:none; }
         <div class="resp">Sim. Suporte prioritário via WhatsApp com tempo médio de resposta de 3 minutos em horário comercial. Também temos base de conhecimento completa com tutoriais em vídeo.</div>
       </div>
       <div class="faq-item">
-        <div class="perg">Como funciona o teste grátis de 24h?<span class="seta">+</span></div>
-        <div class="resp">Você se cadastra, conecta seu WhatsApp e testa todas as funcionalidades por 24 horas sem pagar nada. Se gostar, mantém o plano. Se não, é só não continuar — sem compromisso.</div>
+        <div class="perg">Como recebo o programa depois de comprar?<span class="seta">+</span></div>
+        <div class="resp">Após a confirmação do pagamento pelo Mercado Pago, você é redirecionado para nossa página de confirmação com o botão de download do instalador. Também enviamos o link por email. A instalação leva menos de 2 minutos.</div>
       </div>
       <div class="faq-item">
         <div class="perg">E a garantia de 15 dias?<span class="seta">+</span></div>
@@ -558,12 +567,12 @@ footer a { color:var(--neon-green); text-decoration:none; }
     <div class="offer-box">
       <div class="urgency">⏰ Oferta por tempo limitado</div>
       <div class="vt-label">Valor normal</div>
-      <div class="de">R$ 97,00/mês</div>
-      <div class="por"><small>R$</small> 19,90</div>
-      <div class="parcelas">12 parcelas de R$ 19,90 ou R$ 197,90 à vista</div>
+      <div class="de">R$ 197,00</div>
+      <div class="por"><small>R$</small> 97</div>
+      <div class="parcelas">em até 12x · Licença vitalícia · Uma única compra</div>
       <div class="timer" id="timer">⏳ Oferta encerra em 02:45:00</div>
-      <div class="pag-seguro">🔒 Pagamento 100% seguro via Stripe/MercadoPago</div>
-      <a href="#" class="cta-grande">🔥 QUERO MEU ACESSO AGORA</a>
+      <div class="pag-seguro">🔒 Pagamento 100% seguro via Mercado Pago</div>
+      <button onclick="comprar()" class="cta-grande" style="border:none;cursor:pointer;font-family:var(--font);width:100%">🔥 QUERO MEU ACESSO AGORA</button>
       <div class="garant">🛡️ Garantia incondicional de 15 dias · Risco zero</div>
       <div class="bonus-section">
         <h5>🎁 Bônus Exclusivos ao Assinar Hoje</h5>
@@ -592,7 +601,7 @@ footer a { color:var(--neon-green); text-decoration:none; }
 <section class="cta-final">
   <h2>Automatize seu WhatsApp agora.</h2>
   <p>Mais de 2.300 usuários já transformaram suas vendas com a automação inteligente. O próximo pode ser você.</p>
-  <a href="#oferta">🔥 QUERO COMEÇAR AGORA</a>
+  <button onclick="comprar()" class="cta-main" style="border:none;cursor:pointer;font-family:var(--font)">🔥 QUERO COMEÇAR AGORA</button>
 </section>
 
 <!-- FOOTER -->
@@ -604,10 +613,24 @@ footer a { color:var(--neon-green); text-decoration:none; }
 
 <!-- STICKY MOBILE CTA -->
 <div class="sticky-cta">
-  <a href="#oferta">🔥 TESTAR GRÁTIS POR 24H</a>
+  <button onclick="comprar()" style="display:block;text-align:center;padding:14px;border-radius:10px;background:linear-gradient(135deg,var(--neon-green),#00cc6a);color:#000;font-weight:800;font-size:15px;text-decoration:none;border:none;cursor:pointer;width:100%;font-family:var(--font)">🔥 COMPRAR AGORA — R$ 97</button>
 </div>
 
 <script>
+// Mercado Pago Checkout
+async function comprar() {
+  const btns = document.querySelectorAll('#ctaHero, .cta-grande, .cta-main');
+  btns.forEach(b => { if (b) { b.disabled = true; b.textContent = '⏳ Gerando link...'; } });
+  try {
+    const r = await fetch('/api/create-preference', { method: 'POST' });
+    const d = await r.json();
+    if (d.init_point) { window.location.href = d.init_point; return; }
+    alert('Erro ao gerar pagamento: ' + (d.error || 'tente novamente'));
+  } catch(e) {
+    alert('Erro de conexão: verifique sua internet e tente novamente');
+  }
+  btns.forEach(b => { if (b) { b.disabled = false; b.textContent = '🔥 QUERO MEU ACESSO AGORA'; } });
+}
 // Theme toggle
 (function() {
   const saved = localStorage.getItem('theme');

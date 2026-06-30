@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20 Templates de Campanha — WhatsZap Mágico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font: 'Inter', system-ui, sans-serif;
+  --font-display: 'Sora', 'Inter', system-ui, sans-serif;
+  --bg: #0a0a0f;
+  --bg2: #101018;
+  --surface: rgba(255,255,255,0.04);
+  --border: rgba(255,255,255,0.08);
+  --muted: #8a8a9a;
+  --text: #e8e8f0;
+  --neon-green: #00ff88;
+  --neon-blue: #00d4ff;
+  --green-dim: rgba(0,255,136,0.12);
+  --blue-dim: rgba(0,212,255,0.10);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.6;
+  padding:0;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--blue-dim);
+  border: 1px solid rgba(0,212,255,0.2);
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--neon-blue);
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+  z-index: 1;
+  position: relative;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+h1 span {
+  background: linear-gradient(135deg, var(--neon-green), var(--neon-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.lead {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ── FILTROS ── */
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  border-color: var(--neon-green);
+  color: var(--text);
+}
+
+.filter-btn.active {
+  background: var(--green-dim);
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+}
+
+/* ── GRID ── */
+.templates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 640px) {
+  .templates-grid { grid-template-columns: 1fr; }
+}
+
+.template-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+}
+
+.template-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0,255,136,0.15);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.card-top {
+  margin-bottom: 16px;
+}
+
+.card-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--neon-blue);
+  background: var(--blue-dim);
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.template-card.cat-vendas .card-tag {
+  color: var(--neon-green);
+  background: var(--green-dim);
+}
+
+.template-card.cat-recuperacao .card-tag {
+  color: #ff9f43;
+  background: rgba(255,159,67,0.1);
+}
+
+.template-card.cat-relacionamento .card-tag {
+  color: #a55eea;
+  background: rgba(165,94,234,0.1);
+}
+
+.template-card.cat-atendimento .card-tag {
+  color: var(--neon-blue);
+  background: var(--blue-dim);
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+.desc {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.content-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 13px;
+  color: #d1d1d6;
+  white-space: pre-wrap;
+  font-family: var(--font);
+  line-height: 1.5;
+  user-select: text;
+}
+
+.card-bottom {
+  margin-top: 16px;
+}
+
+.copy-btn {
+  width: 100%;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+  font-family: var(--font);
+}
+
+.copy-btn:hover {
+  background: var(--neon-green);
+  color: #000;
+  border-color: var(--neon-green);
+  font-weight: 700;
+}
+
+.copy-btn svg {
+  fill: currentColor;
+}
+
+footer {
+  text-align: center;
+  margin-top: 60px;
+  padding-top: 30px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+footer a {
+  color: var(--neon-green);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  
+  <header>
+    <div class="badge">BÔNUS EXCLUSIVO LIBERADO</div>
+    <h1>20 Templates de <span>Copywriting</span></h1>
+    <p class="lead">Modelos de mensagens validados, estruturados para gerar máxima conversão, engajamento e respostas nos seus disparos.</p>
+  </header>
+
+  <!-- FILTROS DE CATEGORIA -->
+  <div class="filters">
+    <button class="filter-btn active" onclick="filtrar('all')">Todos</button>
+    <button class="filter-btn" onclick="filtrar('vendas')">Vendas & Promoções</button>
+    <button class="filter-btn" onclick="filtrar('recuperacao')">Recuperação de Vendas</button>
+    <button class="filter-btn" onclick="filtrar('relacionamento')">Relacionamento & Engajamento</button>
+    <button class="filter-btn" onclick="filtrar('atendimento')">Atendimento & Pós-Venda</button>
+  </div>
+
+  <!-- GRID DE TEMPLATES -->
+  <div class="templates-grid" id="grid">
+    
+    <!-- ── CATEGORIA: VENDAS ── -->
+    <div class="template-card cat-vendas">
+      <div class="card-top">
+        <span class="card-tag">Vendas</span>
+        <h3>1. Oferta Relâmpago 24h</h3>
+        <p class="desc">Para ativar listas de leads mornos com uma grande escassez temporal.</p>
+        <div class="content-box">{Olá|Oi}, {{primeiro_nome}}! Tudo bem?
+
+Passando rápido para te avisar que liberamos uma condição especial de 24 horas para o {{nome_produto}}.
+
+Apenas hoje você garante o seu acesso com *{{desconto}}% de desconto* + {{bonus_exclusivo}}.
+
+Clique no link para garantir: {{link_vendas}}
+
+Aproveite porque o estoque é limitado e encerra hoje à noite. Abraço!</div>
+      </div>
+      <div class="card-bottom">
+        <button class="copy-btn" onclick="copiar(this)"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar Template</button>
+      </div>
+    </div>
+
+    <div class="template-card cat-vendas">
+      <div class="card-top">
+        <span class="card-tag">Vendas</span>
+        <h3>2. Convite para Grupo VIP</h3>
+        <p class="desc">Perfeito para lançamentos ou pré-vendas com desconto exclusivo em grupos.</p>
+        <div class="content-box">Tudo bem, {{primeiro_nome}}?
+
+Estamos criando um grupo de WhatsApp restrito e silencioso para a pré-venda do nosso {{nome_produto}}.
+
+Quem estiver no grupo vai receber o link de compra com *R$ {{desconto}} de desconto* 10 minutos antes de todo mundo.
+
+O grupo abre apenas para informativos e o link exclusivo. Quer participar?
+
+Entre aqui: {{link_grupo}}</div>
+      </div>
+      <div class="card-bottom">
+        <button class="copy-btn" onclick="copiar(this)"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar Template</button>
+      </div>
+    </div>
+
+    <div class="template-card cat-vendas">
+      <div class="card-top">
+        <span class="card-tag">Vendas</span>
+        <h3>3. Lançamento Oficial</h3>
+        <p class="desc">Apresentação de novo produto/serviço para clientes da casa.</p>
+        <div class="content-box">{Olá|Oi}, {{primeiro_nome}}!
+
+Hoje é um dia muito especial para nós. Acabamos de lançar oficialmente o {{nome_produto}}! 🚀
+
+Desenvolvemos essa solução focada exclusivamente em ajudar você a {{beneficio_principal}}.
+
+E para comemorar, preparamos um valor de lançamento exclusivo para os nossos contatos do WhatsApp.
+
+Veja os detalhes e garanta a sua vaga: {{link_lancamento}}</div>
+      </div>
+      <div class="card-bottom">
+        <button class="copy-btn" onclick="copiar(this)"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar Template</button>
+      </div>
+    </div>
+
+    <div class="template-card cat-vendas">
+      <div class="card-top">
+        <span class="card-tag">Vendas</span>
+        <h3>4. Gancho de Curiosidade</h3>
+        <p class="desc">Mensagem curta para abrir diálogo e gerar curiosidade imediata.</p>
+        <div class="content-box">Oi, {{primeiro_nome}}! Tudo bem?
+
+Eu estava dando uma olhada no seu perfil/empresa e notei um detalhe que pode estar te fazendo perder {{perda_comum}} todos os meses.
+
+Nós acabamos de desenvolver um método simples para resolver isso.
+
+Você teria 2 minutos para eu te explicar como funciona por aqui?</div>
+      </div>
+      <div class="card-bottom">
+        <button class="copy-btn" onclick="copiar(this)"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar Template</button>
+      </div>
+    </div>
+
+    <div class="template-card cat-vendas">
+      <div class="card-top">
+        <span class="card-tag">Vendas</span>
+        <h3>5. Oportunidade Downsell</h3>
+        <p class="desc">Apresentar um produto mais barato para quem recusou a oferta principal.</p>
+        <div class="content-box">Entendo perfeitamente, {{primeiro_nome}}. O {{produto_principal}} exige um investimento maior neste momento.
+
+Pensando em te ajudar a colher os primeiros resultados sem pesar no orçamento, nós temos o {{produto_secundario}}.
+
+Ele entrega {{beneficio_rapido}} por apenas *R$ {{valor}}* (uma fração do valor original).
+
+Acho que faz total sentido para o seu momento atual. Topa conhecer? {{link_downsell}}</div>
+      </div>
+      <div class="card-bottom">
+        <button class="copy-btn" onclick="copiar(this)"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar Template</button>
+      </div>
+    </div>
+
+    <!-- ── CATEGORIA: RECUPERACAO ── -->
+    <div class="template-card cat-recuperacao">
+      <div class="card-top">
+        <span class="card-tag">Recuperação</span>
+        <h3>6. Pix Gerado (Lembrete Amigável)</h3>
+        <p class="desc">Para enviar 1 hora após a geração do PIX no checkout.</p>
+        <div class="content-box">Olá, {{primeiro_nome}}! Tudo bem?
+
+Identificamos que você gerou o Pix para adquirir o {{nome_produto}}, mas a transação ainda não foi concluída.
+
+Para que você não perca os bônus exclusivos da oferta, estamos reservando a sua vaga.
+
+Caso precise da chave Copia e Cola atualizada ou de ajuda, basta responder aqui.
+
+Link para o seu pedido: {{link_pedido}}</div>
+      </div>
+      <div class="card-bottom">
+        <button class="copy-btn" onclick="copiar(this)"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar Template</button>
+      </div>
+    </div>
+
+    <div class="template-card cat-recuperacao">
+      <div class="card-top">
+        <span class="card-tag">Recuperação</span>
+        <h3>7. Boleto Vencendo Amanhã</h3>
+        <p class="desc">Aviso prévio para evitar que o boleto do cliente vença.</p>
+        <div class="content-box">Oi, {{primeiro_nome}}! Aqui é o suporte do {{nome_empresa}}.
+
+Apenas um lembrete rápido: o boleto do seu pedido do {{nome_produto}} vence *amanhã*.
+
+Assim que efetuar o pagamento, se quiser, pode nos enviar o comprovante por aqui para liberarmos seu acesso antecipadamente.
+
+Link do boleto: {{link_boleto}}</div>
+      </div>
+      <div class="card-bottom">
+        <button class="copy-btn" onclick="copiar(this)"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar Template</button>
+      </div>
+    </div>
+
+    <div class="template-card cat-recuperacao">
+      <div class="card-top">
+        <span class="card-tag">Recuperação</span>
+        <h3>8. Cartão Recusado (Suporte Humano)</h3>
+        <p class="desc">Abordagem sutil de ajuda para quem teve falha no cartão.</p>
+        <div class="content-box">{Olá|Oi}, {{primeiro_nome}}. Tudo bem?
+
+Notamos no sistema que o seu pagamento para o {{nome_produto}} não pôde ser processado pelo seu cartão de crédito.
+
+Isso é bem comum de acontecer por limite diário ou bloqueio de segurança do banco.
+
+Gostaria que eu gerasse um novo link ou prefere tentar via Pix com desconto? Estamos à disposição.</div>
+      </div>
+      <div class="card-bottom">
+        <button class="copy-btn" onclick="copiar(this)"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar Template</button>
+      </div>
+    </div>
+
+    <div class="template-card cat-recuperacao">
+      <div class="card-top">
+        <span class="card-tag">Recuperação</span>
+        <h3>9. Abandono de Checkout (Dúvidas?)</h3>
+        <p class="desc">Mensagem para quem preencheu os dados e não gerou pagamento.</p>
+        <div class="content-box">Oi, {{primeiro_nome}}! Notei que você chegou na nossa página de finalização do {{nome_produto}} mas acabou não concluindo.
+
+Ficou alguma dúvida sobre o produto, bônus ou forma de pagamento?
+
+Responda essa mensagem e eu pessoalmente te ajudo a decidir se o produto é para você.</div>
+      </div>
+      <div class="card-bottom">
+        <button class="copy-btn" onclick="copiar(this)"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar Template</button>
+      </div>
+    </div>
+
+    <div class="template-card cat-recuperacao">
+      <div class="card-top">
+        <span class="card-tag">Recuperação</span>
+        <h3>10. Recuperação Final (Última Chance)</h3>
+        <p class="desc">Condição ultra especial para converter o boleto/pix abandonado.</p>
+        <div class="content-box">{{primeiro_nome}}, esta é a última mensagem que envio sobre seu pedido.
+
+Consegui com a diretoria liberar uma condição que nunca fazemos: *frete grátis / desconto extra* apenas para você fechar agora.
+
+Se você quer mesmo {{beneficio_principal}}, o momento é esse.
+
+Acesse com exclusividade por aqui: {{link_especial}}</div>
+      </div>
+      <div class="card-bottom">
+        <button class="copy-btn" onclick="copiar(this)"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar Template</button>
+      </div>
+    </div>
+
+    <!-- ── CATEGORIA: RELACIONAMENTO ── -->
+    <div class="template-card cat-relacionamento">
+      <div class="card-top">
+        <span class="card-tag">Relacionamento</span>
+        <h3>11. Entrega de Isca Digital</h3>
+        <p class="desc">Envio do material gratuito solicitado pelo lead (Ebook, Planilha, etc.).</p>
+        <div class="content-box">Aqui está seu acesso, {{primeiro_nome}}! 🎁
+
+Conforme prometido, segue o link para baixar o seu {{nome_isca}}:
+
+Link: {{link_download}}
+
+Espero que esse material traga insights valiosos para você. Depois me conta o que achou!</div>
+      </div>
+      <div class="card-bottom">
+        <button class="copy-btn" onclick="copiar(this)"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar Template</button>
+      </div>
+    </div>
+
+    <div class="template-card cat-relacionamento">
+      <div class="card-top">
+        <span class="card-tag">Relacionamento</span>
+        <h3>12. Lembrete de Reunião / Live</h3>
+        <p class="desc">Enviado 15 minutos antes de começar uma mentoria, reunião ou live.</p>
+        <div class="content-box">Está quase na hora, {{primeiro_nome}}! ⏰
+
+Nosso encontro online sobre {{tema}} começa em exatos 15 minutos.
+
+Separe papel, caneta e entre na sala agora para não perder o início:
+
+Link da transmissão: {{link_sala}}
+
+Te vejo lá!</div>
+      </div>
+      <div class="card-bottom">
+        <button class="copy-btn" onclick="copiar(this)"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar Template</button>
+      </div>
+    </div>
+
+    <div class="template-card cat-relacionamento">
+      <div class="card-top">
+        <span class="card-tag">Relacionamento</span>
+        <h3>13. Pesquisa de Perfil (Qualificação)</h3>
+        <p class="desc">Para entender melhor o lead e direcioná-lo no funil comercial.</p>
+        <div class="content-box">Olá, {{primeiro_nome}}! Tudo bem?
+
+Estamos preparando uma nova série de conteúdos práticos e gostaria de fazer algo sob medida para você.
+
+Você poderia me responder qual é o seu maior desafio hoje em relação a {{area_atuacao}}?
+
+1⃣ Falta de clientes qualificados
+2⃣ Processos manuais lentos
+3⃣ Dificuldade em escalar vendas
+
+Basta responder com o número correspondente. Obrigado!</div>
+      </div>
+      <div class="card-bottom">
+        <button class="copy-btn" onclick="copiar(this)"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar Template</button>
+      </div>
+    </div>
+
+    <div class="template-card cat-relacionamento">
+      <div class="card-top">
+        <span class="card-tag">Relacionamento</span>
+        <h3>14. Mensagem de Feedback Ativo</h3>
+        <p class="desc">Fazer o lead responder após um longo período de inatividade.</p>
+        <div class="content-box">Oi, {{primeiro_nome}}! Há algum tempo você baixou nosso material sobre {{assunto}}.
+
+Como estão os resultados por aí? Conseguiu aplicar alguma das dicas?
+
+Se tiver encontrado alguma dificuldade, responde aqui que posso te dar uma direção rápida. Abraço!</div>
+      </div>
+      <div class="card-bottom">
+        <button class="copy-btn" onclick="copiar(this)"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar Template</button>
+      </div>
+    </div>
+
+    <div class="template-card cat-relacionamento">
+      <div class="card-top">
+        <span class="card-tag">Relacionamento</span>
+        <h3>15. Conteúdo de Valor Exclusivo</h3>
+        <p class="desc">Compartilhar uma sacada rápida e gerar valor de marca.</p>
+        <div class="content-box">{Olá|Oi}, {{primeiro_nome}}! Sacada rápida de hoje:
+
+Muita gente erra na hora de {{processo_comum}} porque esquece de {{detalhe_esquecido}}.
+
+Para resolver isso de forma simples:
+1⃣ Faça {{passo_1}}
+2⃣ Ajuste {{passo_2}}
+
+Testa isso hoje e depois me conta o resultado. Boa semana!</div>
+      </div>
+      <div class="card-bottom">
+        <button class="copy-btn" onclick="copiar(this)"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar Template</button>
+      </div>
+    </div>
+
+    <!-- ── CATEGORIA: ATENDIMENTO ── -->
+    <div class="template-card cat-atendimento">
+      <div class="card-top">
+        <span class="card-tag">Atendimento</span>
+        <h3>16. Boas-vindas Pós-Venda</h3>
+        <p class="desc">Mensagem imediata após a aprovação do pagamento do cliente.</p>
+        <div class="content-box">Parabéns pela decisão, {{primeiro_nome}}! 🎉
+
+Seu acesso ao {{nome_produto}} já está liberado.
+
+Estamos muito felizes em ter você conosco nessa jornada. Seu link de acesso e credenciais foram enviados para o seu e-mail, mas você também pode entrar por aqui:
+
+Link: {{link_login}}
+
+Qualquer dúvida, é só nos chamar por aqui!</div>
+      </div>
+      <div class="card-bottom">
+        <button class="copy-btn" onclick="copiar(this)"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar Template</button>
+      </div>
+    </div>
+
+    <div class="template-card cat-atendimento">
+      <div class="card-top">
+        <span class="card-tag">Atendimento</span>
+        <h3>17. Pesquisa NPS / Satisfação</h3>
+        <p class="desc">Enviado 7 a 15 dias após a compra para medir satisfação.</p>
+        <div class="content-box">Oi, {{primeiro_nome}}! Tudo bem?
+
+Você já está utilizando o {{nome_produto}} há alguns dias. Como está sendo sua experiência?
+
+De 0 a 10, o quanto você recomendaria nossa solução para um amigo ou colega?
+
+Sua nota e feedback são fundamentais para continuarmos melhorando. Obrigado!</div>
+      </div>
+      <div class="card-bottom">
+        <button class="copy-btn" onclick="copiar(this)"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar Template</button>
+      </div>
+    </div>
+
+    <div class="template-card cat-atendimento">
+      <div class="card-top">
+        <span class="card-tag">Atendimento</span>
+        <h3>18. Notificação de Suporte Resolvido</h3>
+        <p class="desc">Aviso formal de conclusão de ticket de suporte técnico.</p>
+        <div class="content-box">Olá, {{primeiro_nome}}!
+
+Passando para informar que a solicitação técnica realizada sob o protocolo #{{protocolo}} foi solucionada com sucesso.
+
+A alteração já está ativa na sua conta. Poderia verificar se está tudo funcionando como esperado?
+
+Se precisar de mais alguma coisa, conte conosco.</div>
+      </div>
+      <div class="card-bottom">
+        <button class="copy-btn" onclick="copiar(this)"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar Template</button>
+      </div>
+    </div>
+
+    <div class="template-card cat-atendimento">
+      <div class="card-top">
+        <span class="card-tag">Atendimento</span>
+        <h3>19. Renovação de Assinatura</h3>
+        <p class="desc">Alerta amigável dias antes da expiração da mensalidade/anuidade.</p>
+        <div class="content-box">Oi, {{primeiro_nome}}! Lembrete rápido:
+
+Sua assinatura do {{nome_produto}} será renovada automaticamente em 3 dias ({{data_renovacao}}).
+
+Não há necessidade de nenhuma ação de sua parte se os dados de cobrança estiverem corretos.
+
+Caso precise atualizar seu cartão ou alterar a assinatura, acesse seu painel: {{link_financeiro}}</div>
+      </div>
+      <div class="card-bottom">
+        <button class="copy-btn" onclick="copiar(this)"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar Template</button>
+      </div>
+    </div>
+
+    <div class="template-card cat-atendimento">
+      <div class="card-top">
+        <span class="card-tag">Atendimento</span>
+        <h3>20. Up-sell / Upgrade de Plano</h3>
+        <p class="desc">Apresentar benefícios do plano superior para quem já é cliente ativo.</p>
+        <div class="content-box">{Olá|Oi}, {{primeiro_nome}}! Notei que você tem usado bastante o {{nome_produto}} e está próximo de bater os limites do seu plano atual.
+
+Para que sua operação não pare e você tenha acesso a {{recurso_premium}} e suporte prioritário 24h, recomendamos fazer o upgrade para o plano Pro.
+
+Como você já é nosso cliente, preparei um cupom especial de *{{desconto}}%* na primeira mensalidade do novo plano.
+
+Fazer upgrade agora: {{link_upgrade}}</div>
+      </div>
+      <div class="card-bottom">
+        <button class="copy-btn" onclick="copiar(this)"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copiar Template</button>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>WhatsZap Mágico · Todos os direitos reservados. Material de uso restrito do comprador.</p>
+    <p style="margin-top:8px;"><a href="obrigado.html">Voltar para a página de Download</a></p>
+  </footer>
+
+</div>
+
+<script>
+function filtrar(categoria) {
+  // Update buttons
+  const btns = document.querySelectorAll('.filter-btn');
+  btns.forEach(btn => btn.classList.remove('active'));
+  
+  // Find current button and make it active
+  const event = window.event;
+  if (event && event.target) {
+    event.target.classList.add('active');
+  } else {
+    // Fallback if triggered without direct event
+    const textMap = {
+      'all': 'Todos',
+      'vendas': 'Vendas',
+      'recuperacao': 'Recuperação',
+      'relacionamento': 'Relacionamento',
+      'atendimento': 'Atendimento'
+    };
+    btns.forEach(btn => {
+      if (btn.textContent.includes(textMap[categoria])) {
+        btn.classList.add('active');
+      }
+    });
+  }
+
+  // Filter cards
+  const cards = document.querySelectorAll('.template-card');
+  cards.forEach(card => {
+    if (categoria === 'all') {
+      card.style.display = 'flex';
+    } else {
+      if (card.classList.contains('cat-' + categoria)) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    }
+  });
+}
+
+function copiar(btn) {
+  const card = btn.closest('.template-card');
+  const box = card.querySelector('.content-box');
+  const text = box.innerText;
+  
+  navigator.clipboard.writeText(text).then(() => {
+    const oldHTML = btn.innerHTML;
+    btn.innerHTML = 'Copiado! ✅';
+    btn.style.background = '#00ff88';
+    btn.style.color = '#000';
+    btn.style.borderColor = '#00ff88';
+    setTimeout(() => {
+      btn.innerHTML = oldHTML;
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.style.borderColor = '';
+    }, 1500);
+  });
+}
+</script>
+</body>
+</html>

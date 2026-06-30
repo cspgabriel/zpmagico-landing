@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia Anti-Ban — WhatsZap Mágico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font: 'Inter', system-ui, sans-serif;
+  --font-display: 'Sora', 'Inter', system-ui, sans-serif;
+  --bg: #0a0a0f;
+  --bg2: #101018;
+  --surface: rgba(255,255,255,0.04);
+  --border: rgba(255,255,255,0.08);
+  --muted: #8a8a9a;
+  --text: #e8e8f0;
+  --neon-green: #00ff88;
+  --neon-blue: #00d4ff;
+  --green-dim: rgba(0,255,136,0.12);
+  --blue-dim: rgba(0,212,255,0.10);
+  --red: #ff4466;
+  --red-dim: rgba(255,68,102,0.1);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.6;
+  padding:0;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(0,255,136,0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--green-dim);
+  border: 1px solid rgba(0,255,136,0.2);
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--neon-green);
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+  z-index: 1;
+  position: relative;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+h1 span {
+  background: linear-gradient(135deg, var(--neon-green), var(--neon-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.lead {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ── SECTIONS ── */
+section {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 36px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  section { padding: 24px 20px; }
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 12px;
+}
+
+p {
+  color: var(--muted);
+  font-size: 15px;
+  margin-bottom: 16px;
+}
+
+strong {
+  color: var(--text);
+}
+
+.alert-box {
+  background: var(--red-dim);
+  border: 1px solid rgba(255,68,102,0.2);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  color: #ffb3c1;
+  font-size: 14px;
+}
+
+.alert-box strong {
+  color: var(--red);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.info-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.info-card h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-card p {
+  font-size: 13px;
+  margin-bottom: 0;
+}
+
+/* ── TABLE ── */
+.table-container {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin: 24px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+
+th, td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background: var(--surface);
+  font-weight: 700;
+  color: var(--text);
+}
+
+tr:last-child td {
+  border-bottom: 0;
+}
+
+tr:hover td {
+  background: rgba(255,255,255,0.01);
+}
+
+.step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: var(--green-dim);
+  border: 1px solid rgba(0,255,136,0.3);
+  color: var(--neon-green);
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 12px;
+  margin-right: 8px;
+}
+
+.copy-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  font-family: monospace;
+  font-size: 14px;
+  color: var(--neon-blue);
+  white-space: pre-wrap;
+  margin-top: 16px;
+  position: relative;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 11px;
+  cursor: pointer;
+  font-family: var(--font);
+  transition: all 0.2s;
+}
+
+.copy-btn:hover {
+  background: var(--neon-green);
+  color: #000;
+  border-color: var(--neon-green);
+}
+
+footer {
+  text-align: center;
+  margin-top: 60px;
+  padding-top: 30px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+footer a {
+  color: var(--neon-green);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  
+  <header>
+    <div class="badge">BÔNUS EXCLUSIVO LIBERADO</div>
+    <h1>Guia Completo <span>Anti-Ban</span></h1>
+    <p class="lead">Aprenda a blindar as suas contas de WhatsApp contra bloqueios e a otimizar o seu motor de disparos com segurança total.</p>
+  </header>
+
+  <!-- O QUE CAUSA O BANIMENTO -->
+  <section>
+    <h2>🛡️ O Mecanismo de Proteção do WhatsApp</h2>
+    <p>O sistema do WhatsApp utiliza algoritmos de inteligência artificial de última geração para identificar comportamentos automatizados de spam. Para evitar bloqueios, você precisa entender o que ativa esses alarmes.</p>
+    
+    <div class="alert-box">
+      <strong>⚠️ ALERTA CRÍTICO:</strong> A maior causa de banimento <strong>não é o software de envio em si</strong>, mas sim a denúncia de usuários e o comportamento antinatural de chips novos na rede.
+    </div>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <h4>🚨 Denúncias de Spam</h4>
+        <p>Se muitos destinatários clicarem em "Bloquear" ou "Denunciar" em um curto período de tempo, o WhatsApp banirá o chip instantaneamente. Personalize sempre sua mensagem.</p>
+      </div>
+      <div class="info-card">
+        <h4>⚡ Volume Incomum</h4>
+        <p>Um chip novo disparar 1.000 mensagens repentinamente é um padrão de spam clássico. É fundamental realizar o aquecimento gradativo.</p>
+      </div>
+      <div class="info-card">
+        <h4>🤖 Comportamento de Bot</h4>
+        <p>Enviar mensagens exatamente a cada 5 segundos sem variação de texto indica automação rígida. O WhatsZap Mágico soluciona isso com atrasos inteligentes e Spintax.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROTOCOLO DE AQUECIMENTO -->
+  <section>
+    <h2>📅 O Protocolo de Aquecimento de 14 Dias</h2>
+    <p>Se você acabou de comprar um chip (SIM Card) novo, você <strong>não deve</strong> utilizá-lo para disparos em massa imediatamente. Siga rigorosamente a tabela de maturação de 14 dias abaixo:</p>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Fase / Dias</th>
+            <th>Ações Diárias Obrigatórias</th>
+            <th>Limite de Envios</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Fase 1 (Dias 1 a 3)</strong></td>
+            <td>Insira o chip no celular, configure foto de perfil real, nome, bio e converse manualmente com 5 amigos/familiares. Deixe o chip ativo no 4G.</td>
+            <td>Apenas conversas orgânicas (máx. 10/dia)</td>
+          </tr>
+          <tr>
+            <td><strong>Fase 2 (Dias 4 a 7)</strong></td>
+            <td>Participe de pelo menos 3 grupos públicos de interesse geral. Mande mensagens de texto comuns nestes grupos. Comece a receber mensagens.</td>
+            <td>20 mensagens/dia para contatos mornos</td>
+          </tr>
+          <tr>
+            <td><strong>Fase 3 (Dias 8 a 11)</strong></td>
+            <td>Conecte o chip ao WhatsZap Mágico. Configure os atrasos máximos no painel. Faça envios de teste curtos com spintax ativa.</td>
+            <td>50 mensagens/dia (intercaladas)</td>
+          </tr>
+          <tr>
+            <td><strong>Fase 4 (Dias 12 a 14)</strong></td>
+            <td>Inicie disparos reais apenas para leads que já demonstraram algum interesse prévio (opt-in). Aumente gradativamente.</td>
+            <td>100 mensagens/dia</td>
+          </tr>
+          <tr>
+            <td><strong>Pós-Aquecimento</strong></td>
+            <td>O chip agora está maduro e confiável na rede do WhatsApp. Mantenha os parâmetros de atraso recomendados e envie com moderação.</td>
+            <td>Livre (Recomendado máx. 500/dia por chip)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- BOAS PRÁTICAS -->
+  <section>
+    <h2>⚙️ Configurações Recomendadas no WhatsZap Mágico</h2>
+    <p>Para manter seus envios seguros dentro da nossa plataforma, utilize as seguintes diretrizes operacionais de configuração:</p>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <h4>⏱️ Atraso Inteligente (Delay)</h4>
+        <p>Configure um delay mínimo de <strong>25 a 45 segundos</strong> entre cada mensagem. Quanto maior e mais randômico for o tempo entre os envios, melhor.</p>
+      </div>
+      <div class="info-card">
+        <h4>🔀 Uso Obrigatório de Spintax</h4>
+        <p>Altere a saudação e partes da copy de envio para que cada mensagem pareça única para os servidores. Exemplo:<br>
+        <code>{Olá|Oi|Tudo bem?}, {como vai|tudo certo}?</code></p>
+      </div>
+      <div class="info-card">
+        <h4>💬 Variáveis de Campo</h4>
+        <p>Chame sempre o cliente pelo <strong>primeiro nome</strong>. Mensagens personalizadas com dados específicos reduzem a taxa de denúncias de spam em mais de 75%.</p>
+      </div>
+      <div class="info-card">
+        <h4>🚪 Opção de Opt-Out</h4>
+        <p>Sempre dê a opção de o usuário não receber mais mensagens. Adicione um rodapé amigável como:<br>
+        <em>"Caso não deseje mais receber novidades, responda SAIR."</em></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO RECUPERAR CHIPS -->
+  <section>
+    <h2>🆘 O que fazer em caso de Bloqueio?</h2>
+    <p>Se por acaso o seu chip for bloqueado, não se desespere. Na grande maioria das vezes, o primeiro bloqueio de um chip é revertido em poucas horas através de uma solicitação de suporte simples.</p>
+    
+    <div class="step-num">1</div> <strong>Abra o WhatsApp</strong> no smartphone. Você verá a mensagem informando que a conta está impedida de usar o WhatsApp.<br><br>
+    <div class="step-num">2</div> Toque no botão <strong>"Solicitar Análise"</strong> na tela do aplicativo.<br><br>
+    <div class="step-num">3</div> Copie e cole a mensagem abaixo na caixa de solicitação de análise (adapte se preferir):
+
+    <div class="copy-box" id="templateTexto">Olá, minha conta de trabalho foi bloqueada por engano. Estava respondendo a alguns clientes pendentes e creio que houve um mal-entendido técnico. Utilizo o aplicativo estritamente para suporte profissional. Poderiam, por favor, analisar meu caso e restabelecer o acesso? Agradeço desde já pelo atendimento.</div>
+    <button class="copy-btn" onclick="copiarTexto()">Copiar Texto</button>
+    <br><br>
+    <div class="step-num">4</div> Aguarde de 2 a 8 horas. O suporte costuma desbloquear a conta com um aviso, e você poderá reconectar sua instância no WhatsZap Mágico imediatamente.
+  </section>
+
+  <footer>
+    <p>WhatsZap Mágico · Todos os direitos reservados. Guia exclusivo para assinantes.</p>
+    <p style="margin-top:8px;"><a href="obrigado.html">Voltar para a página de Download</a></p>
+  </footer>
+
+</div>
+
+<script>
+function copiarTexto() {
+  const txt = document.getElementById('templateTexto').innerText;
+  navigator.clipboard.writeText(txt).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    const oldText = btn.innerText;
+    btn.innerText = 'Copiado! ✅';
+    btn.style.background = '#00ff88';
+    btn.style.color = '#000';
+    setTimeout(() => {
+      btn.innerText = oldText;
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>

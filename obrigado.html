@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pedido Confirmado — WhatsZap Mágico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root { --font: 'Inter', system-ui, sans-serif; --font-display: 'Sora', 'Inter', system-ui, sans-serif; --bg: #0a0a0f; --bg2: #101018; --surface: rgba(255,255,255,0.04); --border: rgba(255,255,255,0.08); --muted: #8a8a9a; --text: #e8e8f0; --neon-green: #00ff88; --neon-blue: #00d4ff; --green-dim: rgba(0,255,136,0.12); }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:var(--font); background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; display:flex; align-items:center; justify-content:center; min-height:100vh; padding:20px; }
+.card { background:var(--bg2); border:1px solid var(--border); border-radius:24px; max-width:520px; width:100%; padding:48px 36px; text-align:center; }
+.check-icon { width:72px; height:72px; border-radius:50%; background:var(--green-dim); display:flex; align-items:center; justify-content:center; margin:0 auto 24px; font-size:36px; }
+h1 { font-family:var(--font-display); font-size:28px; font-weight:800; margin-bottom:8px; }
+.sub { color:var(--muted); font-size:15px; line-height:1.6; margin-bottom:32px; }
+.info-box { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:24px; text-align:left; font-size:14px; color:var(--muted); line-height:1.6; }
+.info-box strong { color:var(--text); }
+.download-btn { display:flex; align-items:center; justify-content:center; gap:10px; padding:18px 32px; border-radius:12px; background:linear-gradient(135deg,var(--neon-green),#00cc6a); color:#000; font-weight:800; font-size:16px; text-decoration:none; transition:transform .15s, box-shadow .15s; margin-bottom:12px; }
+.download-btn:hover { transform:translateY(-2px); box-shadow:0 0 40px rgba(0,255,136,0.4); }
+.download-btn .small { font-weight:400; font-size:12px; opacity:.7; }
+.download-btn:active { transform:scale(0.97); }
+.email-note { font-size:12px; color:var(--muted); margin-bottom:24px; }
+.help { font-size:13px; color:var(--muted); }
+.help a { color:var(--neon-green); text-decoration:none; }
+.help a:hover { text-decoration:underline; }
+.loader { display:inline-block; width:20px; height:20px; border:2px solid rgba(0,0,0,.2); border-top-color:#000; border-radius:50%; animation:spin .6s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.bonus-container { margin: 24px 0; border-top: 1px solid var(--border); padding-top: 24px; text-align: left; }
+.bonus-title { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 16px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.bonus-item { display: flex; align-items: center; justify-content: space-between; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; margin-bottom: 10px; transition: border-color 0.2s; }
+.bonus-item:hover { border-color: rgba(0,255,136,0.2); }
+.bonus-info { display: flex; flex-direction: column; gap: 2px; }
+.bonus-name { font-size: 13px; font-weight: 700; color: var(--text); }
+.bonus-desc { font-size: 11px; color: var(--muted); }
+.bonus-btn { display: inline-flex; align-items: center; justify-content: center; padding: 8px 16px; border-radius: 8px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text); font-size: 12px; font-weight: 600; text-decoration: none; transition: all 0.2s; }
+.bonus-btn:hover { background: var(--neon-green); color: #000; border-color: var(--neon-green); }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="check-icon">✅</div>
+  <h1>Pagamento Confirmado!</h1>
+  <p class="sub" id="statusMsg">Seu pedido foi processado com sucesso. Seu aplicativo está pronto para download.</p>
+
+  <div class="info-box">
+    <strong>📦 WhatsZap Mágico — Licença Vitalícia</strong><br>
+    • Acesso vitalício ao software<br>
+    • Atualizações gratuitas<br>
+    • Suporte prioritário<br>
+    • Ativação via QR Code do WhatsApp
+  </div>
+
+  <a href="https://github.com/cspgabriel/EXECUTAVEL-PC-ZAPMAGICO-2026/releases/download/v1.0.0/Zap+M%C3%A1gico+BR+Setup+1.0.0.exe"
+     class="download-btn"
+     id="downloadBtn"
+     download>
+    📥 BAIXAR INSTALADOR
+    <span class="small">(87 MB · Windows)</span>
+  </a>
+
+  <div class="email-note">📧 Também enviamos este link para o email do seu pagamento.</div>
+
+  <div class="bonus-container">
+    <div class="bonus-title">🎁 Seus Bônus de Compra Liberados:</div>
+    
+    <div class="bonus-item">
+      <div class="bonus-info">
+        <span class="bonus-name">🛡️ Guia Completo Anti-Ban</span>
+        <span class="bonus-desc">Dicas e boas práticas essenciais</span>
+      </div>
+      <a href="guia-anti-ban.html" class="bonus-btn">Acessar</a>
+    </div>
+
+    <div class="bonus-item">
+      <div class="bonus-info">
+        <span class="bonus-name">📝 20 Templates de Campanha</span>
+        <span class="bonus-desc">Copys de alta conversão prontas</span>
+      </div>
+      <a href="templates-campanha.html" class="bonus-btn">Acessar</a>
+    </div>
+  </div>
+
+  <div class="help">
+    Precisa de ajuda? <a href="https://wa.me/5521999999999" target="_blank">Fale conosco no WhatsApp</a>
+  </div>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const status = params.get('status');
+const paymentId = params.get('payment_id');
+const collectionId = params.get('collection_id');
+
+if (status === 'approved' || collectionId) {
+  document.getElementById('statusMsg').textContent = '✅ Pagamento aprovado! Seu aplicativo está pronto para download.';
+}
+
+async function baixar() {
+  const btn = document.getElementById('downloadBtn');
+  btn.innerHTML = '<span class="loader"></span> Baixando...';
+}
+document.getElementById('downloadBtn').addEventListener('click', baixar);
+</script>
+</body>
+</html>
