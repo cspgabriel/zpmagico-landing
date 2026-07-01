@@ -55,7 +55,8 @@ export async function sendConfirmationEmail({
       .replace(/{{nome}}/g, name)
       .replace(/{{email_login}}/g, loginEmail)
       .replace(/{{senha_temporaria}}/g, plainPassword || 'Sua senha cadastrada')
-      .replace(/{{link_login}}/g, loginUrl);
+      .replace(/{{link_login}}/g, loginUrl)
+      .replace(/{{download_url}}/g, process.env.DOWNLOAD_URL || 'https://github.com/cspgabriel/zpmagico-landing/releases/download/v1.0.0-desktop/Zap.Magico.BR.Setup.1.0.0.exe');
 
     // Substituir também links absolutos dos bônus no domínio se necessário (caso venham via env)
     const domain = process.env.NEXT_PUBLIC_APP_URL || 'https://zapmagico.agenciarmktdigital.com.br';
