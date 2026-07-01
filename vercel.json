@@ -6,6 +6,8 @@
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/obrigado", "destination": "/obrigado.html" },
+    { "source": "/versao-zappy", "destination": "/versao-zappy.html" },
+    { "source": "/zappy", "destination": "/versao-zappy.html" },
     { "source": "/portal-do-cliente", "destination": "/obrigado.html" },
     { "source": "/bonus/guia-anti-ban", "destination": "/guia-anti-ban.html" },
     { "source": "/bonus/templates-campanha", "destination": "/templates-campanha.html" },

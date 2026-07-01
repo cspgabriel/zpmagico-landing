@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WhatsZap Mágico — A Revolução da Automação no WhatsApp</title>
-<meta name="description" content="Disparo em massa, extratores, IA para atendimento 24h e proteção anti-ban. Tudo em um só lugar.">
+<title>ZAPIFY — WhatsZap Mágico com integração Zappy API + Multicontas</title>
+<meta name="description" content="Versão desktop com integração à Zappy API e múltiplas contas. Dispare por QR Code nativo OU pela nuvem Zappy, gerencie várias instâncias e escolha qual dispara. Download direto.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@700;800&display=swap" rel="stylesheet">
 <style>
@@ -320,23 +320,22 @@ footer a { color:var(--neon-green); text-decoration:none; }
 
 <!-- HERO -->
 <section class="hero">
-  <div class="badge">+2.300 usuários ativos</div>
-  <h1>O jeito mais inteligente de <span class="g">automatizar seu WhatsApp</span></h1>
-  <p class="sub">Disparo em massa com segurança anti-ban, extratores de dados, IA para atendimento 24h e muito mais. A central de automação que sua empresa merece.</p>
+  <div class="badge">🆕 Nova versão desktop · Integração Zappy API</div>
+  <h1>ZAPIFY — <span class="g">automação de WhatsApp</span> com integração Zappy</h1>
+  <p class="sub">Toda a força do WhatsZap Mágico, agora com <strong>integração à Zappy API</strong> e <strong>múltiplas contas</strong>. Conecte por QR Code nativo <strong>ou</strong> pela nuvem Zappy, gerencie várias instâncias e escolha qual dispara.</p>
   <div class="tags">
-    <span>📱 Disparo em Massa</span>
+    <span>☁️ Integração Zappy API</span>
+    <span>👥 Multicontas</span>
+    <span>📱 QR Code nativo</span>
     <span>🛡️ Anti-Ban</span>
-    <span>🤖 IA 24h</span>
-    <span>📊 Extratores</span>
-    <span>⚡ Multi-Instância</span>
+    <span>📊 Relatórios</span>
   </div>
   <div class="price-block">
-    <div class="de">De R$ 197,00</div>
-    <div class="valor">R$ 97</div>
-    <div class="parcel">em até 12x · Licença vitalícia · 15 dias de garantia</div>
+    <div class="valor">Download</div>
+    <div class="parcel">Windows · Instalador .exe · Conecte sua própria conta Zappy</div>
   </div>
-  <button onclick="document.getElementById('oferta').scrollIntoView({ behavior: 'smooth' })" class="cta-main" id="ctaHero">🔥 QUERO AUTOMATIZAR MEU WHATSAPP</button>
-  <div class="garant">🛡️ 15 dias de garantia incondicional · Acesso imediato</div>
+  <a href="#" class="cta-main" id="ctaHero" onclick="baixar();return false;">⬇️ BAIXAR ZAPIFY (VERSÃO ZAPPY)</a>
+  <div class="garant">🖥️ Windows 10/11 · Cada usuário cadastra a própria conta Zappy no app</div>
 </section>
 
 <!-- PROOF BAR -->
@@ -690,7 +689,7 @@ footer a { color:var(--neon-green); text-decoration:none; }
       <div class="parcelas">em até 12x · Licença vitalícia · Uma única compra</div>
       <div class="timer" id="timer">⏳ Oferta encerra em 02:45:00</div>
       <div class="pag-seguro">🔒 Pagamento 100% seguro via Mercado Pago</div>
-      <button onclick="comprar()" class="cta-grande" style="border:none;cursor:pointer;font-family:var(--font);width:100%">🔥 QUERO MEU ACESSO AGORA</button>
+      <button onclick="baixar()" class="cta-grande" style="border:none;cursor:pointer;font-family:var(--font);width:100%">⬇️ BAIXAR ZAPIFY AGORA</button>
       <div class="garant">🛡️ Garantia incondicional de 15 dias · Risco zero</div>
       <div class="bonus-section">
         <h5>🎁 Bônus Exclusivos ao Assinar Hoje</h5>
@@ -719,37 +718,30 @@ footer a { color:var(--neon-green); text-decoration:none; }
 <section class="cta-final">
   <h2>Automatize seu WhatsApp agora.</h2>
   <p>Mais de 2.300 usuários já transformaram suas vendas com a automação inteligente. O próximo pode ser você.</p>
-  <button onclick="comprar()" class="cta-main" style="border:none;cursor:pointer;font-family:var(--font)">🔥 QUERO COMEÇAR AGORA</button>
+  <button onclick="baixar()" class="cta-main" style="border:none;cursor:pointer;font-family:var(--font)">⬇️ BAIXAR ZAPIFY AGORA</button>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <p>WhatsZap Mágico · Automatize. Venda. Escale.</p>
+  <p>ZAPIFY · WhatsZap Mágico — versão desktop com integração Zappy API</p>
   <p style="margin-top:6px;">© 2026 · Todos os direitos reservados · <a href="#">Termos</a> · <a href="#">Privacidade</a></p>
-  <p style="margin-top:6px;font-size:11px;">Produto digital — entrega por email após confirmação do pagamento.</p>
-  <p style="margin-top:10px;font-size:13px;">🆕 <a href="/versao-zappy" style="color:var(--neon-green);font-weight:700;text-decoration:none;">Nova versão desktop com integração Zappy API + Multicontas → baixar</a></p>
+  <p style="margin-top:6px;font-size:11px;">Windows 10/11 · Cada usuário cadastra a própria conta Zappy no aplicativo.</p>
+  <p style="margin-top:10px;font-size:13px;"><a href="/" style="color:var(--neon-green);font-weight:700;text-decoration:none;">← Voltar para a página principal</a></p>
 </footer>
 
 <!-- STICKY MOBILE CTA -->
 <div class="sticky-cta">
-  <button onclick="comprar()" style="display:block;text-align:center;padding:14px;border-radius:10px;background:linear-gradient(135deg,var(--neon-green),#00cc6a);color:#000;font-weight:800;font-size:15px;text-decoration:none;border:none;cursor:pointer;width:100%;font-family:var(--font)">🔥 COMPRAR AGORA — R$ 97</button>
+  <button onclick="baixar()" style="display:block;text-align:center;padding:14px;border-radius:10px;background:linear-gradient(135deg,var(--neon-green),#00cc6a);color:#000;font-weight:800;font-size:15px;text-decoration:none;border:none;cursor:pointer;width:100%;font-family:var(--font)">⬇️ BAIXAR ZAPIFY AGORA</button>
 </div>
 
 <script>
-// Mercado Pago Checkout
-async function comprar() {
-  const btns = document.querySelectorAll('#ctaHero, .cta-grande, .cta-main');
-  btns.forEach(b => { if (b) { b.disabled = true; b.textContent = '⏳ Gerando link...'; } });
-  try {
-    const r = await fetch('/api/create-preference', { method: 'POST' });
-    const d = await r.json();
-    if (d.init_point) { window.location.href = d.init_point; return; }
-    alert('Erro ao gerar pagamento: ' + (d.error || 'tente novamente'));
-  } catch(e) {
-    alert('Erro de conexão: verifique sua internet e tente novamente');
-  }
-  btns.forEach(b => { if (b) { b.disabled = false; b.textContent = '🔥 QUERO MEU ACESSO AGORA'; } });
+// Download da versão ZAPIFY (integração Zappy API + multicontas)
+var DOWNLOAD_URL = 'https://github.com/cspgabriel/zpmagico-landing/releases/download/zappy-v1.0.0/ZAPIFY-Setup-1.0.0.exe';
+function baixar() {
+  window.location.href = DOWNLOAD_URL;
 }
+// Nesta página, todos os CTAs baixam o app (em vez de checkout).
+function comprar() { baixar(); }
 // Theme toggle
 (function() {
   const saved = localStorage.getItem('theme');
