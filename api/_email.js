@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const DOWNLOAD_URL = 'https://github.com/cspgabriel/zpmagico-landing/releases/download/v1.0.0-desktop/Zap.Magico.BR.Setup.1.0.0.exe';
+const DOWNLOAD_URL = 'https://github.com/cspgabriel/zap-magico-atendimento-agosto-2026/releases/download/v1.3.0/Zap.Magico.WPP.Web.QR.Setup.1.3.0.exe';
 const SITE_URL = 'https://zapmagico.agenciarmktdigital.com.br';
 
 function loadTemplate(fileName) {
